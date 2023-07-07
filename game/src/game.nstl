@@ -1,0 +1,14 @@
+
+--
+-- Gaming!
+--
+
+library _dma;
+
+-- initializes the heap
+external function _dma.init of ptr heap_start, u32 max_size returns none;
+
+function main of none begin
+	-- housekeeping
+	call _dma.init with 0x0008_0000, 0x0004_0000;
+end function
