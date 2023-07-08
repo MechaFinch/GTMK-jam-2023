@@ -3,12 +3,62 @@
 -- Gaming!
 --
 
-library _dma;
+-- libraries included to make sure they're there
+library _ivt;
+library _pit from "periodic.asm";
+external function _pit.init of none returns none;
+
+-- libraries we use here
+library _util;
+library _dma from "memory/dma";
+library _palettes from "../resources/palettes";
+library _gutil from "simvideo/gutil";
+library _sprites from "simvideo/sprites";
+library _spritedata from "../resources/spritedata";
+
+-- draws a sprite without transparency
+external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
+
+-- sets the global palette
+external function _gutil.set_palette of u8 pointer palette returns none;
+
+
+-- halts, then returns
+external function _util.halt of none returns none;
+-- enables interrupts, returning the previous value of PF
+external function _util.enable_interrupts of none returns u16;
+-- disables interrupts, returning the previous value of PF
+external function _util.disable_interrupts of none returns u16;
 
 -- initializes the heap
 external function _dma.init of ptr heap_start, u32 max_size returns none;
 
+-- misc
+external function _pit.end_window_flicker of none;
+external function _pit.end_server_flicker1 of none;
+external function _pit.end_server_flicker2 of none;
+external function _pit.end_server_flicker3 of none;
+
 function main of none begin
+	call _util.disable_interrupts with none;
+
 	-- housekeeping
 	call _dma.init with 0x0008_0000, 0x0004_0000;
+	call _pit.init with none;
+	call _gutil.set_palette with to _palettes.p1;
+	
+	-- modify some animation palettes
+	call _pit.end_window_flicker with none;
+	call _pit.end_server_flicker1 with none;
+	call _pit.end_server_flicker2 with none;
+	call _pit.end_server_flicker3 with none;
+	
+	call _sprites.draw with to _spritedata.bg, 0, 0;
+	
+	-- off we go
+	call _util.enable_interrupts with none;
+	
+	while 1 do
+		call _util.halt with none;
+	end while
 end function

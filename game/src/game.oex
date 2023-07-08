@@ -1,0 +1,11 @@
+#entry game.main
+out\util.obj
+out\gutil.obj
+out\dma.obj
+out\palettes.obj
+out\sprites.obj
+out\spritedata.obj
+out\ivt.obj
+out\pit.obj
+out\game.obj
+out\keys.obj
