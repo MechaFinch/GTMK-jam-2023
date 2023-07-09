@@ -15,6 +15,7 @@
 %include "util" as util
 %include "memory/dma" as dma
 %include "spriteanim" as spra
+%include "music.obj" as music
 
 %define PALETTE_START 0xF003_2C00
 
@@ -55,6 +56,8 @@
 %define RUNLATER_SIZE_INC 16
 %define RUNLATER_SIZE_DEC 32
 
+%define MIDI_START 0xF001_0000
+
 millis_counter: 	dp 0
 
 runlater_array_ptr:	dp 0
@@ -62,6 +65,8 @@ runlater_array_len: dw RUNLATER_SIZE_INC
 
 conveyor_anim_enabled:	db 1
 
+music_pointer: 	resp 1;
+music_start:	resp 1;
 
 
 ; initializes the system
@@ -74,6 +79,10 @@ init:
 	ADD SP, 4
 	
 	MOVW [runlater_array_ptr], D:A
+	
+	MOVW D:A, music.song1
+	MOVW [music_pointer], D:A
+	MOVW [music_start], D:A
 	
 	POP BP
 	RET
@@ -149,6 +158,35 @@ pit_handler:
 
 	CALL spra.animate_conveyor
 .task5:
+
+	; music
+.midi_loop:
+	MOVW D:A, [music_pointer]
+	MOVW B:C, [D:A]
+	CMP B, 0
+	MOV K, F
+	CMP C, 0
+	AND F, K
+	JZ .restart_track
+	
+	CMP J, B
+	JA .midi_yes
+	JB .no_music
+	CMP I, C
+	JB .no_music
+.midi_yes:
+	MOVW B:C, [D:A + 4]
+	MOVW [MIDI_START], B:C
+	ADD A, 8
+	ICC D
+	MOVW [music_pointer], D:A
+	JMP .midi_loop
+
+.restart_track:
+	MOVW D:A, [music_start]
+	MOVW [music_pointer], D:A
+
+.no_music:
 	
 	; handle runlater tasks
 .runlater_tasks:
@@ -429,4 +467,12 @@ enable_conveyor_anim:
 disable_conveyor_anim:
 	MOV A, 0
 	MOV [conveyor_anim_enabled], AL
+	RET
+
+
+
+set_song:
+	MOVW D:A, [SP + 4]
+	MOVW [music_start], D:A
+	MOVW [music_pointer], D:A
 	RET

@@ -13,6 +13,7 @@ library _spritedata from "../resources/spritedata";
 library _fxp from "math/fixedpoint";
 library _game;
 library _util;
+library _music;
 
 -- draws a sprite without transparency
 external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
@@ -34,6 +35,8 @@ external function _fxp.divs1616 of i32 a, i32 b returns i32;
 
 external function _util.buffer_screen of none;
 external function _util.unbuffer_screen of none;
+
+external function _pit.set_song of ptr song_pointer;
 
 define SCREEN_WIDTH is 320;
 define SCREEN_HEIGHT is 240;
@@ -148,7 +151,7 @@ function animate_conveyor of none begin
 		
 		-- draw first partial box
 		if (box_x < 0) and ((box_x + box_w) > 0) then
-			--call _sprites.draw_part_transparent with to _spritedata.box, box_x, box_target_y, 0 - box_x, 0, box_w + box_x, box_h;
+			call _sprites.draw_part_transparent with to _spritedata.box, 0, box_target_y, 0 - box_x, 0, box_w + box_x, box_h;
 			box_y gets box_base_y;
 		end if
 		
@@ -161,7 +164,7 @@ function animate_conveyor of none begin
 		
 		-- last partial box
 		if box_x < SCREEN_WIDTH then
-			--call _sprites.draw_part_transparent with to _spritedata.box, box_x, box_y, 0, 0, SCREEN_WIDTH - box_x, box_h;
+			call _sprites.draw_part_transparent with to _spritedata.box, box_x, box_y, 0, 0, SCREEN_WIDTH - box_x, box_h;
 		end if
 		
 		call _util.unbuffer_screen with none;
@@ -182,6 +185,8 @@ function repaint_clipping_area of ptr sp1, ptr sp2, i16 sp1_x, i16 sp1_y, i16 sp
 	
 	if ((sp2_x + sp2_w) > sp1_x) and (sp2_x <= (sp1_x + sp1_w)) and -- x clipping
 	   ((sp2_y + sp2_h) > sp1_y) and (sp2_y <= (sp1_y + sp1_h)) then -- y clipping
+		variable x is i16;
+		variable y is i16;
 		variable sx is i16;
 		variable sy is i16;
 		variable w is i16;
@@ -189,15 +194,19 @@ function repaint_clipping_area of ptr sp1, ptr sp2, i16 sp1_x, i16 sp1_y, i16 sp
 		
 		-- sx = max(sp2_x, sp1_x) - sp1_x
 		if sp2_x < sp1_x then
+			x gets sp1_x;
 			sx gets 0;
 		else
+			x gets sp2_x;
 			sx gets sp2_x - sp1_x;
 		end if
 		
 		-- sy = max(sp2_y, sp1_y) - sp1_y
 		if sp2_y < sp1_y then
+			y gets sp1_y;
 			sy gets 0;
 		else
+			y gets sp2_y;
 			sy gets sp2_y - sp1_y;
 		end if
 		
@@ -216,9 +225,9 @@ function repaint_clipping_area of ptr sp1, ptr sp2, i16 sp1_x, i16 sp1_y, i16 sp
 		end if
 		
 		if transparent then
-			call _sprites.draw_part_transparent with sp1, sp1_x, sp1_y, sx, sy, w, h;
+			call _sprites.draw_part_transparent with sp1, x, y, sx, sy, w, h;
 		else
-			call _sprites.draw_part with sp1, sp1_x, sp1_y, sx, sy, w, h;
+			call _sprites.draw_part with sp1, x, y, sx, sy, w, h;
 		end if
 	end if
 end function
