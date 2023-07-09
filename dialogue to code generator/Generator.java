@@ -21,7 +21,7 @@ public class Generator {
     static final int lineHeight = 2;
     static final int defaultVerticalPos = 22;
 
-    static final String waitInput = "\ncall _dialog.wait_choice with none;";
+    static final String waitInput = "\ncall _dialog.wait_dialog with none;";
     static final String clearCode = "\ncall _dialog.reset_box with none;";
     
 
