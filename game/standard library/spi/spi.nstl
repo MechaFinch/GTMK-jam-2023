@@ -1,0 +1,75 @@
+
+--
+-- STANDARD LIBRARY - SPI DRIVER
+-- NSTL TEMPLATE
+--
+
+library _spi;
+
+-- spi control bytes
+-- bits 7:5 = device select lines
+-- bits 4:2 unused
+-- bit 1 = if set, enqueue recieved data
+-- bit 0 = D/C bit during transmit
+
+-- spi config byte
+-- bit 1 = raise exception with the provided vector if read fails and the bit is set
+
+-- spi control struct
+type spi_controller is structure of
+	tx_queue is queue,
+	rx_queue is queue,
+	dc_queue is queue,
+	state is u8,
+	config is u8,
+	exception is u8
+end type
+
+-- see queue library
+type queue is structure of
+	in_index is u16,
+	out_index is u16,
+	count is u16,
+	buffer_size is u16,
+	buffer is u8 pointer
+end type
+
+--
+-- INTERRUPT DRIVEN SPI
+--
+
+-- initializes a spi controller
+-- pointers to initialized queues must be provided.
+-- the txp and dcp queue sizes much match
+external function _spi.init of spi_controller pointer p, queue pointer txp, queue pointer rxp, queue pointer dcp returns none;
+
+-- transmits a byte, waiting if no transmit buffer space is available.
+-- interrupts must be enabled during execution
+external function _spi.blocking_transmit of u8 data, u8 control returns none;
+
+-- transmits a byte, failing if no buffer space is available
+-- returns true on success
+external function _spi.nonblocking_transmit of u8 data, u8 control returns boolean;
+
+-- recieves a byte, waiting if no data is available.
+-- interrupts must be enabled during execution
+external function _spi.blocking_recieve of none returns u8;
+
+-- recieves a byte, failing if no data is available
+external function _spi.nonblocking_recieve of none returns u8;
+
+-- returns the number of bytes available to read
+external function _spi.data_available of none returns u16;
+
+-- returns the number of bytes available to write
+external function _spi.space_available of none returns u16;
+
+--
+-- POLLING DRIVEN SPI
+--
+
+-- initializes the spi interface for polling
+external function _spi.polling_init of none returns none;
+
+-- transmits and recieves a byte via polling
+external function _spi.polling_rxtx of u8 data, u8 control returns u8;

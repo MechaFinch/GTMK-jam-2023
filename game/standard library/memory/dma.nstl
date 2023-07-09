@@ -1,0 +1,364 @@
+
+-- 
+-- STANDARD LIBRARY - MEMORY
+-- DYNAMIC MEMORY ALLOCATOR
+-- NSTL TEMPLATE
+--
+
+--library _dma;
+
+-- initializes the heap
+--external function _dma.init of ptr heap_start, u32 max_size returns none;
+
+-- allocate n bytes on the heap, returning a pointer to it
+--external function _dma.malloc of u32 n returns ptr;
+
+-- allocate n bytes on the heap, clearing them to zero and returning a pointer to it
+--external function _dma.calloc of u32 n returns ptr;
+
+-- re-allocate a block to a new size, copying the data as needed and returning a new pointer
+--external function _dma.realloc of ptr block, u32 n returns ptr;
+
+-- re-allocate a block to a new size, copying data as needed and clearing any new space, returning the new pointer
+--external function rcalloc of ptr block, u32 n returns ptr;
+
+-- free the block at the given pointer
+--external function _dma.free of ptr block returns none;
+
+--
+-- initial unoptimized implementation
+--
+
+-- Method: 						Segregated explicit free lists
+-- Minimum allocation size:		12 bytes
+-- Allocation size alignment:	4 bytes
+-- Header
+--	Allocated
+--		31 downto 2	size >> 2
+--		1			previous block allocation status (1 = allocated)
+--		0			current block allocation status (1 = allocated)
+--	Free
+--		95 downto 64	previous block pointer
+--		63 downto 32	next block pointer
+--		31 downto 2		size >> 2
+--		1				previous block allocation status
+--		0				current block allocation status		
+-- Free Footer
+--	31 downto 0	size
+-- Brackets (2^n checks with (size - 1) >> n = 0)
+--	2^4	up to 16 bytes
+--	2^6	up to 64 bytes
+--	2^8 up to 256 bytes
+--	any
+-- Free Policy: LIFO
+-- The free block marking the end of the heap will have size 0 and a null next pointer
+--
+
+type free_header is structure of
+	size_status is u32,
+	next is free_header pointer,
+	prev is free_header pointer
+end type
+
+type heap_control is structure of
+	heap_size				is u32, -- size - allocated - free = interally fragmented (by headers or alignment)
+	allocated_bytes			is u32, -- number of allocated bytes
+	free_bytes				is u32, -- number of free bytes
+	allocated_blocks		is u16, -- number of allocated blocks
+	free_blocks				is u16, -- number of free blocks
+	free_list_head			is free_header pointer
+end type
+
+variable heap is heap_control;
+
+-- initializes the heap
+function init of ptr heap_start, u32 max_size begin
+	-- create initial block
+	free_header at heap_start gets free_header of
+		size_status gets 2,
+		next gets 0,
+		prev gets (to heap.free_list_head) as ptr - 4 -- such that updating this.prev.next updates the head
+	end structure;
+	
+	heap_start gets heap_start + 12;
+	u32 at heap_start gets 0;
+	heap_start gets heap_start - 12;
+
+	-- create control
+	heap gets heap_control of
+		heap_size				gets max_size,
+		allocated_bytes			gets 0,
+		free_bytes				gets max_size - (sizeof free_header + sizeof u32),
+		allocated_blocks		gets 0,
+		free_blocks				gets 1,
+		free_list_head			gets heap_start
+	end structure;
+end function
+
+-- allocate n bytes on the heap, returning a pointer to it
+function malloc of u32 n returns ptr begin
+	if n = 0 then
+		return 0;
+	end if
+
+	-- align
+	n gets (call align with n);
+	variable current_block is free_header pointer gets heap.free_list_head;
+	variable block_found is boolean;
+	variable current_block_size is u32; -- JI
+	variable current_b_s is u32; -- BP + FC
+	
+	-- search free list
+	while 1 do
+		-- is the block large enough
+		current_b_s gets (at current_block).size_status;
+		current_block_size gets current_b_s and not 0x03;
+		current_b_s gets current_b_s and 0x03;
+		
+		if current_block_size >= n then
+			-- yes
+			block_found gets 1;
+			break;
+		elseif current_block_size = 0 then
+			-- end of heap
+			block_found gets 0;
+			break;
+		else
+			-- no
+			current_block gets (at current_block).next;
+		end if
+	end while
+	
+	if block_found then
+		-- we found a block.
+		call downsize with current_block, current_block_size, current_b_s, n;
+		
+		-- splice out of free list
+		call splice_out with current_block;
+		
+		-- mark as allocated, mark next block
+		variable size_status is u32 gets (at current_block).size_status;
+		variable next_header is free_header pointer gets current_block + (size_status and not 0x03) + 4;
+		(at current_block).size_status gets size_status or 0x01;				-- this allocated
+		(at next_header).size_status gets (at next_header).size_status or 0x02;	-- next prev allocated
+	else
+		-- we didn't find a block. extend the heap.
+		variable new_end_of_heap is free_header pointer gets current_block + n + 4;
+		
+		at new_end_of_heap gets free_header of
+			size_status gets 2,
+			next gets 0,
+			prev gets (at current_block).prev
+		end structure;
+		
+		(at (at current_block).prev).next gets new_end_of_heap;
+		
+		at current_block gets free_header of
+			size_status gets n or current_b_s or 1,
+			next gets 0,
+			prev gets 0
+		end structure;
+	end if
+	
+	return current_block + 4;
+end function
+
+-- allocate n bytes on the heap, clearing them to zero and returning a pointer to it
+function calloc of u32 n returns ptr begin
+	-- malloc
+	variable p is ptr gets (call malloc with n);
+	variable p2 is ptr gets p;
+	
+	-- clear
+	variable i is u32 gets 0;
+	until i >= n do
+		-- allocation sizes are 4 byte aligned
+		u32 at p2 gets 0;
+		
+		p2 gets p2 + 4;
+		i gets i + 4;
+	end until
+	
+	return p;
+end function
+
+-- re-allocate a block to a new size, copying the data as needed and returning a new pointer
+function realloc of ptr block, u32 n returns ptr begin
+	
+	variable new_size is u32 gets (call align with n);
+	variable old_header is ptr gets block - 4;
+	variable old_size is u32 gets u32 at old_header;
+	variable old_status is u32 gets old_size and 0x0000_0003;
+	old_size gets old_size and 0xFFFF_FFFC;
+	
+	if old_size = new_size then
+		-- no action
+		return block;
+	elseif old_size > new_size then
+		-- split the block
+		call downsize with old_header, old_size, old_status, new_size;
+		return block;
+	else
+		-- allocate new block
+		variable new_block is ptr gets (call malloc with n);
+		
+		-- copy data
+		variable i is u32 gets 0;
+		until i >= old_size do
+			variable offset_block_old is ptr gets block + i;
+			variable offset_block_new is ptr gets new_block + i;
+			
+			u32 at offset_block_new gets u32 at offset_block_old;
+			
+			i gets i + 4;
+		end until
+		
+		-- free old block
+		call free with block;
+		
+		return new_block;
+	end if
+end function
+
+-- re-allocate a block to a new size, copying data as needed and clearing any new space, returning the new pointer
+function rcalloc of ptr block, u32 n returns ptr begin
+	variable new_size is u32 gets (call align with n);
+	variable old_header is ptr gets block - 4;
+	variable old_size is u32 gets (u32 at old_header) and not 0x03;
+	
+	variable new_block is ptr gets (call realloc with block, n);
+	
+	-- clear any new space
+	if old_size < new_size then
+		variable i is u32 gets old_size;
+		until i >= new_size do
+			variable offset_ptr is ptr gets new_block + i;
+			u32 at offset_ptr gets 0;
+			
+			i gets i + 4;
+		end until
+	end if
+	
+	return new_block;
+end function
+
+-- free the block at the given pointer
+function free of ptr block begin
+	block gets block - 4;
+	
+	-- check for adjacent free blocks
+	variable block_status is u32 gets u32 at block;
+	
+	-- make sure the block is allocated
+	if (block_status and 0x01) = 0 then
+		return;
+	end if
+	
+	-- splice into free list
+	variable block_size is u32 gets block_status and not 0x03;
+	call splice_in with block, (block_status and not 0x01);
+	
+	variable next_header is free_header pointer gets block + block_size;
+	
+	u32 at next_header gets block_size;
+	next_header gets next_header + 4;
+	
+	variable next_status is u32 gets (at next_header).size_status;
+	(at next_header).size_status gets next_status and not 0x02;
+	
+	-- merge with adjacent free blocks
+	variable low_header is free_header pointer gets block;
+	
+	if (block_status and 0x02) = 0 then
+		-- previous block is free
+		variable low_size_ptr is u32 pointer gets block - 4;
+		low_header gets (block - (at low_size_ptr)) - 4;
+		
+		call merge with low_header, block;
+	end if
+	
+	if (next_status > 3) and ((next_status and 0x01) = 0) then
+		-- next block is free
+		call merge with low_header, next_header;
+	end if
+end function
+
+--
+-- Utilities
+--
+
+-- aligns a value to 4 bytes
+function align of u32 n returns u32 begin
+	if n < 12 then
+		return 12;
+	end if
+	
+	if n and 0x03 then
+		n gets (n and not 0x03) + 4;
+	end if
+	
+	return n;
+end function
+
+-- downsizes an existing block, splicing the new block into the appropriate free list
+function downsize of ptr header, u32 old_size, u32 old_status, u32 new_size returns none begin
+	-- can a new block fit
+	variable new_block_size is u32 gets old_size - new_size - 4;
+	if new_block_size < 12 then
+		-- no
+		return;
+	end if
+	
+	-- yes
+	-- modify existing block
+	u32 at header gets new_size or old_status;
+	
+	-- place new block
+	variable new_header is free_header pointer gets header + new_size + 4;
+	variable next_header is free_header pointer gets header + old_size + 4;
+	
+	-- splice into free list
+	call splice_in with new_header, new_block_size;
+	
+	next_header gets next_header - 4;
+	new_header gets new_header - 4;
+	u32 at next_header gets new_block_size;
+	u32 at new_header gets new_size;
+end function
+
+-- merges two free blocks
+function merge of free_header pointer low_header, free_header pointer high_header returns none begin
+	-- splice blocks out of the free list
+	call splice_out with low_header;
+	call splice_out with high_header;
+	
+	-- new block
+	variable low_status is u32 gets (at low_header).size_status;
+	variable new_size is u32 gets (low_status and not 0x03) + ((at high_header).size_status and not 0x03) + 4;
+	low_status gets low_status and 0x03;
+	
+	variable new_marker is u32 pointer gets low_header as ptr + new_size;
+	at new_marker gets new_size;
+	
+	-- splice into free list
+	call splice_in with low_header, (new_size or low_status);
+end function
+
+function splice_in of free_header pointer new_block, u32 size_status begin
+	free_header at new_block gets free_header of
+		size_status gets size_status,
+		next gets heap.free_list_head,
+		prev gets (to heap.free_list_head) as ptr - 4
+	end structure;
+	
+	(at heap.free_list_head).prev gets new_block;
+	heap.free_list_head gets new_block;
+end function
+
+function splice_out of free_header pointer block begin
+	variable next_block_header is free_header pointer gets (at block).next;
+	variable prev_block_header is free_header pointer gets (at block).prev;
+	
+	(at next_block_header).prev gets prev_block_header;
+	(at prev_block_header).next gets next_block_header;
+end function

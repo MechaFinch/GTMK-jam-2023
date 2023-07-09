@@ -1,0 +1,34 @@
+
+--
+-- STANDARD LIBRARY - MEMORY
+-- QUEUE STRUCTURE
+-- NSTL TEMPLATE
+--
+
+library _queue;
+
+-- main structure
+type queue is structure of
+	in_index is u16,
+	out_index is u16,
+	count is u16,
+	buffer_size is u16,
+	buffer is u8 pointer
+end type
+
+-- intializes a queue
+external function _queue.create_queue of queue pointer p, u16 qsize, u8 pointer buffer returns none;
+
+-- enqueues a byte
+-- returns true if the byte was successfully enqueued. the function space_available can also be used to check
+external function _queue.enqueue of queue pointer p, u8 d returns boolean;
+
+-- dequeues a byte
+-- returns zero if no data is availabe. use the data_available function to check before dequeuing
+external function _queue.dequeue of queue pointer p returns u8;
+
+-- returns the number of bytes available to read
+external function _queue.data_available of queue pointer p returns u16;
+
+-- retruns the number of bytes available to write
+external function _queue.space_available of queue pointer p returns u16;

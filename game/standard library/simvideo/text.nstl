@@ -1,0 +1,24 @@
+
+--
+-- STANDARD LIBRARY - SIM VIDEO
+-- TEXT
+-- NSTL TEMPLATE
+--
+
+library _text;
+
+-- aligned single character
+external function _text.a_char of u8 chr, u8 fgc, u8 bgc, u8 row, u8 col returns none;
+
+-- aligned string, no wrap, no scroll
+external function _text.a_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col returns none;
+-- aligned string, wrapping, no scrol
+external function _text.aw_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col returns none;
+-- aligned string, wrapping, scrolling
+external function _text.aws_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col returns none;
+
+-- unaligned single character
+external function _text.u_char of u8 chr, u8 fgc, u8 bgc, u16 row, u16 col returns none;
+
+-- unaligned string
+external function _text.u_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u16 row, u16 col, returns none;

@@ -1,0 +1,41 @@
+
+-- 
+-- STANDARD LIBRARY - GENERAL
+-- UTILITIES
+-- NSTL TEMPLATE
+--
+
+library _util;
+
+type function_decriptor is structure of
+	func_ptr is ptr,	-- pointer to the function
+	arg_size is u8,		-- total size of arguments in bytes
+	ret_size is u8		-- size of the return type in bytes (0 - 4)
+end type
+
+-- Calls the function described by the given descriptor with arguments held in the args buffer,
+-- returning the return value of the function. Interrupts are disabled during execution of
+-- the function.
+external function _util.atomic_call of function_descriptor pointer desc, ptr args returns ptr;
+
+-- halts, then returns
+external function _util.halt of none returns none;
+
+-- enables interrupts, returning the previous value of PF
+external function _util.enable_interrupts of none returns u16;
+
+-- disables interrupts, returning the previous value of PF
+external function _util.disable_interrupts of none returns u16;
+
+-- sets PF to the given value
+external function _util.set_pf of u16 returns none;
+
+-- returns PF
+external function _util.get_pf of none returns u16;
+
+-- MULH and MULSH
+external function _util.mulh8 of u8 a, u8 b returns u16;
+external function _util.mulsh8 of i8 a, i8 b returns i16;
+external function _util.mulh16 of u16 a, u16 b returns u32;
+external function _util.mulsh16 of i16 a, i16 b returns i32;
+

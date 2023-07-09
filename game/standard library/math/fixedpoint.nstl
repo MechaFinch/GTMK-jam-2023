@@ -1,0 +1,34 @@
+
+-- 
+-- STANDARD LIBRARY - MATH
+-- FIXED POINT
+-- NSTL TEMPLATE
+-- 
+-- Multiplication and division for 16 and 32 bit fixed point
+-- 
+
+library _fxp;
+
+-- 8 bit integer, 24 bit fractional
+external function _fxp.mulu824 of u32 a, u32 b returns u32;
+external function _fxp.muls824 of i32 a, i32 b returns i32;
+external function _fxp.divu824 of u32 a, u32 b returns u32;
+external function _fxp.divs824 of i32 a, i32 b returns i32;
+
+-- 16 bit integer, 16 bit fractional
+external function _fxp.mulu1616 of u32 a, u32 b returns u32;
+external function _fxp.muls1616 of i32 a, i32 b returns i32;
+external function _fxp.divu1616 of u32 a, u32 b returns u32;
+external function _fxp.divs1616 of i32 a, i32 b returns i32;
+
+-- 24 bit integer, 8 bit fractional
+external function _fxp.mulu248 of u32 a, u32 b returns u32;
+external function _fxp.muls248 of i32 a, i32 b returns i32;
+external function _fxp.divu248 of u32 a, u32 b returns u32;
+external function _fxp.divs248 of i32 a, i32 b returns i32;
+
+-- 8 bit integer, 8 bit fractional
+external function _fxp.mulu88 of u16 a, u16 b returns u16;
+external function _fxp.muls88 of i16 a, i16 b returns i16;
+external function _fxp.divu88 of u16 a, u16 b returns u16;
+external function _fxp.divs88 of i16 a, i16 b returns i16;

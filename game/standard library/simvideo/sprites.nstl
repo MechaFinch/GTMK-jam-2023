@@ -1,0 +1,26 @@
+
+--
+-- STANDARD LIBRARY - SIMVIDEO
+-- SPRITES
+-- NSTL TEMPLATE
+--
+
+library _sprites;
+
+-- draws a sprite without transparency
+external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
+
+-- draws a sprite with transparency
+external function _sprites.draw_transparent of u8 pointer sp, i16 x, i16 y returns none;
+
+-- draws a part of the sprite without transparency
+external function _sprites.draw_part of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+
+-- draws a part of the sprite with transparency
+external function _sprites.draw_part_transparent of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+
+-- gets the width of a sprite
+external function _sprites.get_width of u8 pointer sp returns u16;
+
+-- gets the height of a sprite
+external function _sprites.get_height of u8 pointer sp returns u16;

@@ -1,0 +1,26 @@
+
+	NST Handheld Map
+	(see nst_constants.vhd for most up-to-date)
+
+Device			Start		End			Size
+RAM				0x00000000	0x000FFFFF	1,048,576
+SPI				0x80000000	0x80000003	4
+Keypad			0x80010000	0x80010007	8
+Cache control	0x80020000	0x80020001	2
+Bootrom			0xFFFFFC00	0xFFFFFFFF	1,024
+
+
+
+	NST Simulator Map
+	Until I want to emulate the ILI9341 and SD card protocols these will be different
+	
+Device			Start		End			Size
+RAM				0x00000000	0x000FFFFF	1,048,576
+SPI				0x80000000	0x80000003	4			TBA
+Keypad			0x80010000	0x80010007	8
+Cache control	0x80020000	0x80020001	2			non-functional
+Keyboard		0xF0000000	0xF0000001	2
+Sound			0xF0010000	0xF0010003	4
+Video			0xF0020000	0xF003FFFF	131,072
+Random			0xF0040000	0xF0040003	4
+Bootrom			0xFFFFFC00	0xFFFFFFFF	1,024		TBA
