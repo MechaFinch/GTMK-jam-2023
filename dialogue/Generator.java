@@ -17,7 +17,7 @@ public class Generator {
     static final String [] choiceColors = {"COLOR_CHOICE1", "COLOR_CHOICE2", "COLOR_CHOICE3"};
     static final String color2 = "COLOR_TRANSPARENT";
 
-    static final int lineHeight = 2;
+    static final int lineHeight = 1;
     static final int defaultVerticalPos = 21;
     static final int defaultHorizontalPos = 1;
     static final int charsPerLine = 38;
@@ -32,8 +32,8 @@ public class Generator {
         int [] lineBreakCounts = new int[lines.length];
 
         for(int i = 0; i < lines.length; i++) {
-            lineBreakCounts[i] = countLines(lines[i]);
             lines[i] = formatDialogString(lines[i]);
+			lineBreakCounts[i] = countLines(lines[i]);
         }
 
 
@@ -77,7 +77,7 @@ public class Generator {
                 for(int l = 0; l < choicesCount; l++) {
                     code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l, choiceVerticalPos);
                     int newlines = Math.max(1, lineBreakCounts[i + l]);
-                    choiceVerticalPos += (newlines * lineHeight);
+                    choiceVerticalPos += (newlines * lineHeight) + 1;
                 }
 
                 code = code + "\ncall _dialog.wait_choice with " + choicesCount + ", " + choicesLines[0] + ", " + choicesLines[1] + ", " + choicesLines[2] + ";";
@@ -149,9 +149,12 @@ public class Generator {
 
     //count how many lines this would take
     public static int countLines(String str) {
-
-        return (int)Math.floor((str.length() / charsPerLine));
-
+		int n = 0;
+		
+		for(int i = 0; i < str.length() - 1; i++)
+			if(str.charAt(i) == '\\' && str.charAt(i + 1) == 'n') n++;
+		
+		return n;
     }
 
     //insert line breaks, \ out quotes
