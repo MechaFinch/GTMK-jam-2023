@@ -48,12 +48,23 @@ define KEY_RIGHT is 0x27;
 define KEY_ENTER is 0x0A;
 define KEY_SPACE is 0x20;
 
+function wait_dialog of none begin
+	while 1 do
+		call _util.halt with none;
+		
+		-- wait for keydown
+		if u16 at (to _ivt.last_interrupt_source) = 3 then
+			break;
+		end if
+	end while
+end function
+
 -- waits on a dialog selection
 -- num_choices = number of available choices
 -- c1_h = height in lines of choice 1
 -- c2_h = height in lines of choice 2
 -- c3_h = height in lines of choice 3
-function wait_dialog of u8 num_choices begin
+function wait_choice of u8 num_choices begin
 	variable current_choice is u8 gets 1;
 	
 	call highlight_choice with 1;
