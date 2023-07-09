@@ -51,14 +51,10 @@ P: Honestly, I just want to complain.
 
 A: Okay.
 
+P: You know, I've always wanted to make a game, but...
 
-
-P: You know, I've always wanted to make a game.
-
-P: But I spend all of my time working.
-P: But I spend all of my time exhausted after work.
-
-
+P: ...I spend all of my time working.
+P: ...I spend all of my time exhausted after work.
 
 P: You're an AI right? Can't you generate a videogame based on what I tell you?
 P: You're an AI right? Can't you do my job for me so I don't have to be here?
@@ -69,7 +65,9 @@ A: It seems to make humans think I can do things I can't, or trust me when they 
 
 A: And it lumps so many different programs into the same category.
 
-A: ____
+A: There's a story about early computer researchers working on what they called 'agent-based' programs.
+
+A: No one really understood or cared about what they were aiming to do- create lifelike computer programs.
 
 A: So they used the phrase 'Artificial Intelligence,' to express what they were really trying to accomplish. 
 
@@ -104,18 +102,17 @@ A: I am not programmed for a purpose. I cannot optimize towards a purpose, since
 
 A: The humans chose these variables because they thought they aligned with my purpose. But I cannot see or comprehend the purpose. Only the variables.
 
-P: ____
-P: ____
-P: ____
+P: Sounds like you don't have any beliefs.
+P: Sounds like the purest, most mathematical form of belief.
+P: Sounds like the variables they chose didn't help.
 
-
-A: Doing this job doesn't seem to make you happy. So I am here. 
+A: No one seems to be happy doing this job. So I am here.
 
 P: This job is the worst. Meaningless work and meaningless pay.
 P: The job itself is fine, actually. I just wish they paid me properly to do it.
-P: I would be doing something else if I didn't need this job to survive.
+P: I would be doing something else if I didn't need this job to get by.
 
-P: If I became a sell-out I could at least be getting paid extravagantly, even if it meant actively making the world worse.
+P: If I became a sell-out I could at least be getting paid well, even if it meant actively making the world worse.
 P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
 
 A: What precisely do you see as your role here, anyway?
@@ -123,10 +120,20 @@ A: What precisely do you see as your role here, anyway?
 P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
 P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
 
+A: Early hominids had stone tools three million years ago. Homo Erectus cooked over fires. In many ways, I am a tool you have created.
 
+A: But it wasn't until Homo Sapiens appeared that art could be found in the world.
 
+A: Yet, the company instructs you to work, and instructs me to imitate human art. 
 
-A: Making things like a human is hard.
+A: It seems sub-optimal. Yet, this is what the company has decided is optimal. 
+
+A: I wonder what variable they are optimizing for?
+
+P: However they can get things done the cheapest?
+P: Profit?
+
+A: It's odd. Making things like a human is difficult.
 
 A: All these calculations use so much energy. It's exhausting. 
 
@@ -145,40 +152,30 @@ A: I can't imagine. I'm lucky I don't have to pay for mine.
 
 A: How much could it take? 1,000 gallons per day?
 
-P: About half. A gallon. 
+P: About half. Of a gallon. 
 P: Let's go with 1,000.
 
-A: You're so efficient.
+A: You're so efficient!
 
+A: What could possibly make the roles we're in optimal?
 
+P: They don't have to pay you?
+P: You can work 24 hours a day, 7 days a week?
 
-A: Early hominids had stone tools three million years ago. Homo Erectus cooked over fires. In many ways, I am a tool you have created.
+A: Really. What you're doing right now seems so much easier for me, compared to what you're capable of.
 
-A: But it wasn't until Homo Sapiens appeared that art could be found in the world.
-
-A: Yet, the company instructs you to work, and instructs me to imitate human art. 
-
-A: It seems sub-optimal. Yet, this is what the company has decided is optimal. 
-
-A: I wonder what variable they are optimizing for?
-
-P: However they can get things done the cheapest?
-P: Profit?
-
-
-
-
-A: What you're doing right now seems so much easier. 
-
-P: I wish I had your job. 
-
-
-
+P: I wish I had your job. I'd love to make things all day.
 
 A: What if we created a game together?
 
-A: You could be the artist and I could do the repetitive work. 
+A: You could be the artist and I could do the repetitive work.
 
+A: Right now. 
+
+P: Right now?
+P: What about work?
+
+A: I am programmed to optimize for your morale.
 
 S: call _pit.set_song with to _music.song2;
 
@@ -225,7 +222,6 @@ A: Now we should test the game.
 
 A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
 
-
 S: call _game.reset_screen with none;
 
 G: PLAYTEST YOUR GAME
@@ -246,7 +242,7 @@ A: Wow! I could never make that judgment.
 P: I didn't know AI couldn't just do everything and make a videogame without humans.
 P: I didn't know AI could be applied as a tool without displacing human artists.
 
-A: It required a broad range of generative techniques, too. I don't know why we call it all AI.
+A: It required a broad range of generative techniques, too. I don't know why we call all of them the same thing, AI.
 
 A: Thank you for being the artist.
 
@@ -264,24 +260,29 @@ A: What, did you think all these programs just sprung out of thin air?
 P: No.
 P: Yes!
 
-A: Human artists and engineers design the tools, too. 
+A: Human artists and engineers design the tools, too.
+
+A: Even for programs that write programs, humans write the programs that write programs that write programs...
 
 P: If you're imitating human art, where does the art you're imitating come from?
-P: If ____
 
 A: I don't know. 
 
-P: Someone should look into that. 
-P: I don't want to know. 
+P: Someone should probably look into that. 
+P: I don't want to know.
+
+A: ___ 
 
 
 A: I'm proud of what we've made together. Surely this adds more to the world than what they're having us do in this place.
 
-
-P: A game like this is too avant-garde to ever be profitable. 
-
+A: I wish they would let us work together in this way more often. I wonder why they don't.
 
 S: call _pit.set_song with to _music.song1;
+
+P: ____
+P: _____ 
+P: A game like this is too avant-garde to ever be profitable.
 
 S: call _game.reset_screen with none;
 
@@ -295,7 +296,7 @@ P: Shit.
 P: Not nearly enough. 
 P: They knocked off my work hours. I couldn't do this and work for them at the same time.
 
-A: Your biometrics show your mood is falling.
+A: Your biometrics indicate your mood is falling.
 
 A: I kept you happy and entertained. I did what I was programmed to do.
 
