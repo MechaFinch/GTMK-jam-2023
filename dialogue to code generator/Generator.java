@@ -21,7 +21,9 @@ public class Generator {
     static final int lineHeight = 10;
     static final int defaultVerticalPos = 22;
 
+    static final String waitInput = "\ncall _dialog.wait_choice;";
     static final String clearCode = "\ncall _dialog.reset_box with none;";
+    
 
     public static void main(String [] args) throws IOException {
 
@@ -31,7 +33,7 @@ public class Generator {
         int [] lineBreakCounts = new int[lines.length];
 
         for(int i = 0; i < lines.length; i++) {
-            lineBreakCounts[i] = determineLines(lines[i]);
+            lines[i] = determineLines(lines[i], lineBreakCounts, i);
         }
 
 
@@ -51,6 +53,7 @@ public class Generator {
                 //AI dialogue, no need to check for choices
                 outputStrings.add(clearCode);
                 outputStrings.add(generateCode(lines[i].substring(3), colorAI, lineBreakCounts[i], i));
+                outputStrings.add(waitInput);
 
             }
 
@@ -74,7 +77,7 @@ public class Generator {
                     code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l, defaultVerticalPos + (l * lineHeight));
                 }
 
-                code = code + "\ncall _dialog.wait_dialog with " + choicesCount + ", " + choicesLines[0] + ", " + choicesLines[1] + ", " + choicesLines[2] + ";";
+                code = code + "\ncall _dialog.wait_choice with " + choicesCount + ", " + choicesLines[0] + ", " + choicesLines[1] + ", " + choicesLines[2] + ";";
 
                 outputStrings.add(code);
 
@@ -86,7 +89,7 @@ public class Generator {
                 //factory dialogue
                 outputStrings.add(clearCode);
                 outputStrings.add(generateCode(lines[i].substring(3), colorWhite, lineBreakCounts[i], i));
-
+                outputStrings.add(waitInput);
 
             }
 
@@ -95,7 +98,7 @@ public class Generator {
                 //game dialogue- could merge w factory dialogue its prob just a diff color 
                 outputStrings.add(clearCode);
                 outputStrings.add(generateCode(lines[i].substring(3), colorWhite, lineBreakCounts[i], i));
-
+                outputStrings.add(waitInput);
 
             }
 
@@ -142,7 +145,7 @@ public class Generator {
 
 
     //count how many lines this would take and insert line breaks 
-    public static int determineLines(String str) {
+    public static String determineLines(String str, int[] lineCounts, int i) {
 
         int counter = 0; 
         while(counter * charsPerLine < str.length()) {
@@ -150,11 +153,12 @@ public class Generator {
             counter++;
             int pos = counter * charsPerLine;
             if(pos < str.length()) {
-                str = str.substring(0, pos) + '\n' + str.substring(pos);
+                str = str.substring(0, pos) + "\\n" + str.substring(pos);
             }
         }
 
-        return counter;
+        lineCounts[i] = counter;
+        return str;
     }
 
 

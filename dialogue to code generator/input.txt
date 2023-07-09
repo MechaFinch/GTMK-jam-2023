@@ -7,7 +7,7 @@ P: I love working at the repetitive manual labor factory!
 P: I love working at the repetitive manual labor factory!
 P: I love working at the repetitive manual labor factory!
 
-S: call _pit.set_song with to _music.song1
+S: call _pit.set_song with to _music.song1;
 
 F: LOGIN ACCEPTED
 
@@ -173,7 +173,7 @@ A: What if we created something together?
 A: You could make art and I could do the repetitive work. 
 
 
-S: call _pit.set_song with to _music.song2
+S: call _pit.set_song with to _music.song2;
 
 G: DRAW A BEAUTIFUL SCENE 
 
@@ -244,7 +244,7 @@ P: A game like this is too avant garde to ever be profitable.
 P: 
 
 
-S: call _pit.set_song with to _music.song1
+S: call _pit.set_song with to _music.song1;
 
 F: TERMINATING SHIFT
 
