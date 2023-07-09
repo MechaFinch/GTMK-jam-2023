@@ -228,7 +228,11 @@ A: Now we should test the game.
 A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
 
 
+S: call _game.reset_screen with none;
+
 G: PLAYTEST YOUR GAME
+
+S: variable sprite_playtest is ptr gets (call _etch.create_image with 32, 32);
 
 S: call _sprites.draw with sprite_scene, (320 / 2) - 16, 16;
 S: call _sprites.draw with sprite_character, (320 / 2) - 16, 16;
