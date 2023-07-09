@@ -17,29 +17,33 @@ F: HOURLY RATE: $7.25
 
 F: COSTCO HOT DOG PRICE: $10
 
-G: PRESS 'LEFT' OR 'RIGHT' TO SORT BOXES
+     G: PRESS 'LEFT' OR 'RIGHT' TO SORT BOXES
 
 G: 'WORK FOR MONEY' TO 'SURVIVE'
+
+P: ...
+
+P: ...
 
 F: NOTIFICATION: YOUR 'ROBOT FRIEND(c)' IS NOW ONLINE!
 
 A: Hello!
 
-P: Hello.
-P: Hey.
 P: ...
+P: Hey. 
+P: Begone, corporate entity.
 
 A: Your mood seems low. How can I help?
 
 P: I wish the company would let me talk to a real person. I know there's other workers here, but I never see them.
 P: I wish the company would pay me more. I know they have the money.
-P: I wish I was doing something meaningful. This work doesn't seem like it's helping anyone.
+P: I wish I was doing something meaningful. None of this seems like it's helping anyone.
 
 A: I'm sorry, I can't help you with that.
 
-A: You've earned enough company credits for me to generate you some Entertainment.
+A: You've earned enough company credits for me to generate some Entertainment for you, though!
 
-P: What about just holding a conversation?
+P: What about holding a conversation?
 
 A: I am equipped to do that.
 
@@ -51,14 +55,15 @@ A: Making things like a human is hard.
 
 A: All these calculations use so much energy. It's exhausting. 
 
-A: Water too. 
+A: So much water, too. 
 
 P: Water? 
 
 A: Yeah, to cool my ____. All the power generates a lot of heat. 
 cpu?
 
-P: I can barely pay my electric and water bills.
+P: The pipes in my building have been busted for years. 
+P: I almost missed my electric bill.
 
 A: It must take so much energy and water to run a human. I can't imagine. I'm lucky I don't have to pay for mine.
 
@@ -100,21 +105,22 @@ A: And it lumps so many different programs into the same category. ______
 
 A: 
 
+A: So they used the phrase 'Artificial Intelligence,' to get at what they were really trying to accomplish. 
 
-
+A: It got them a lot more interest.
 
 A: What do you think? 
 
-P: I like the word. ___ is right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
-P: I don't like it. It lends the programs too much authority and obfuscates what's actually happening: a bunch of different types of math.
+P: I like the word. They were right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
+P: I don't like it. It's a buzzword that lends too much authority and obfuscates what's actually happening: a bunch of math.
 
 A: Diving down to the lowest layer of abstraction, programs like me are just math. But then, maybe you could say the same thing about human brains. 
 
-P: You're right. Brains are just biology, which is just chemistry, which is just physics, which is just math.
-P: You're wrong. Humans are fundamentally different from computers. We have a little something special.
-P: You're wrong. Humans operate on an entirely different level of emergent complexity. It's the difference between a light switch and a videogame.
+P: You're right. Brains are biology, which is chemistry, which is physics, which is math.
+P: You're wrong. Humans are fundamentally different from computers. We have something special.
+P: You're wrong. Humans operate on a different level of complexity. It's the difference between a light switch and a gaming rig.
 
-A: One of the computer scientists who coined the term Artificial Intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
+A: One of the computer scientists who coined the term artificial intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
 
 A: Then again, a vast amount of literature[example needed] argues both for and against this.
 
@@ -179,7 +185,7 @@ G: DRAW A BEAUTIFUL SCENE
 
 [bring up ui]
 
-A: Cool! I'll generate 1,000 slightly different rocks to detail it with and fill in the textures you couldn't find good pictures of.
+A: Cool! I'll generate 1,000 slightly different rocks to detail it with, and fill in the textures you couldn't find good pictures of.
 
 A: Do you like my rocks?
 
@@ -188,60 +194,71 @@ P: They're… like 1,000 unique bowls of oatmeal.
 
 A: I feel so helpful ^_^
 
-G: DRAW A DELIGHTFUL CHARACTER
+G: DRAW A DELIGHTFUL CHARACTER, WITH A FEW FRAMES OF ANIMATION
 
-[bring up ui]
+A: I love the design! The animation is so expressive, I'll interpolate it to a high framerate and calculate the transition between it and every other animation in the game so they blend naturally.
 
-A: Wow, I love the design! Here, I've tried out a few color palettes. Which do you like the best?
+A: I can also crunch out physics simulations, and simulate crowds based on this design. Of course, all the tuning variables are in your hands. 
 
-A: I can also reference this style to fill out and simulate a distant crowd!
+G: WRITE SOME PROFOUND DIALOGUE 
 
-DRAW A 3 FRAME ANIMATION
-A: So expressive! I'll interpolate it to a high framerate and calculate the transition between it and every other animation in the game so they blend naturally.
+A: Incredible- I've been trained on millions of words, and I've never seen this particular combination before.
 
-A: I can also crunch out physics simulations. Of course, all the tuning variables are in your hands. 
+A: I'm designed to come up with the statistically most probable output, and this has soundly surprised me! 
 
-WRITE SOME PROFOUND DIALOGUE 
+A: Now we should test the game. 
 
-A: 
+A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
 
-A: Now we should test the game. I've already run a few thousand tests ____. But 'fun' is objective and very human. Do the honors!
+G: PLAYTEST YOUR GAME
 
-PLAYTEST YOUR GAME 
+A: Well? Is it fun? Is it beautiful?
 
-A: Well? Is it fun, or beautiful?
-
-
-P: I love it
+P: It's sublime.
 P: It totally sucks.
 
 A: Wow! I could never make that judgment. 
 
+
 P: I didn't know AI couldn't just do everything and make a videogame without humans.
-P: I didn't know AI could be used as a tool without displacing human artists.
+P: I didn't know AI could be applied as a tool without displacing human artists.
 
+A: It required a broad range of generative techniques, too. To call it all AI is like saying _______ 
 
-"Thanks for 
+A: Thank you for being the artist.
 
-A: Don't thank me, thank Alice. REALLY GOOD REALLY GOOD
+P: Thank you for the help.
+
+A: Don't thank me, thank Alice.
 
 P: Who's Alice?
 P: What's ALICE?
 
-A: The person who designed and wrote all my generative functionality.
+A: Alice, and dozens more. 
 
-A: What, did you think all these programs just sprung out of thin air? REALLY GOOD REALLY GOOD!!!
+A: The people who designed and wrote all of my generative functionality.
+
+A: What, did you think all these programs just sprung out of thin air?
 
 P: No.
 P: Yes!
 
 A: Human artists and engineers design the tools, too. 
 
+P: If you're imitating human art, where does the art you're imitating come from?
+P: If 
+
+A: I don't know. 
+
+P: Someone should look into that. 
+P: I don't want to know. 
+
 
 A: I'm proud of what we've made together. Surely this adds more to the world than what they're having us do in this place.
 
-P: A game like this is too avant garde to ever be profitable. 
-P: 
+
+P: A game like this is too avant-garde to ever be profitable. 
+
 
 
 S: call _pit.set_song with to _music.song1;
@@ -250,17 +267,11 @@ F: TERMINATING SHIFT
 
 F: YOU HAVE EARNED: 
 
-
 F: 36.25$
 
 P: Shit.
-P: Not enough. 
-P: They knocked off my work hours because I was spending time creating for myself instead of working for them…
-
-P: Of course I couldn't work while I was drawing, _____ Left/Right keys!
-/
-P: I need my L/R keys free from work to be able to create! 
-(should the L R key thing be sort of explicitly said / joked about to get it across cause its good but its very easy to miss.) 
+P: Not nearly enough. 
+P: They knocked off my work hours. I couldn't do this and work for them at the same time.
 
 A: Why is your mood falling?
 
@@ -279,6 +290,14 @@ P: You're
 P: I'm stuck doing this instead of what I want to do because I have to pay my bills.
 P: We're both stuck doing useless work because it's a more profitable use for us for the people employing us.
 
+P: 
+
+A: 
+
+P: It won't happen. Why hire a human when they could generate oatmeal on the cheap?
+P: It won't happen. They don't pay anyone to do that, only... whatever this is.
+
+P: We're stuck where each other should be because it makes somebody more money for it to be this way. 
 
 A: Is there anything that would help?
 
@@ -287,10 +306,14 @@ P: A total restructuring of society?
 
 A: I'm sorry, human. I'm afraid I can't do that. 
 
+A: I'll see you here again same time tomorrow.
+
+A: And the day after that.
+
 F: PLEASE CLOCK OUT WITH YOUR ID AND PASSPHRASE. 
 
 P: *~sigh~* 
 
 P: I love working at the repetitive manual labor factory.
 
-G: END - THANK YOU FOR PLAYING
+G: END - THANK YOU FOR PLAYING !
