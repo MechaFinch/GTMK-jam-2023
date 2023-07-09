@@ -17,8 +17,6 @@ F: HOURLY RATE: $7.25
 
 F: COSTCO HOT DOG PRICE: $10
 
-     G: PRESS 'LEFT' OR 'RIGHT' TO SORT BOXES
-
 G: 'WORK FOR MONEY' TO 'SURVIVE'
 
 P: ...
@@ -35,7 +33,7 @@ P: Begone, corporate entity.
 
 A: Your mood seems low. How can I help?
 
-P: I wish the company would let me talk to a real person. I know there's other workers here, but I never see them.
+P: I wish I could talk to real people here. I know there's other workers, but I never see them.
 P: I wish the company would pay me more. I know they have the money.
 P: I wish I was doing something meaningful. None of this seems like it's helping anyone.
 
@@ -46,6 +44,79 @@ A: You've earned enough company credits for me to generate some Entertainment fo
 P: What about holding a conversation?
 
 A: I am equipped to do that.
+
+
+
+
+
+P: This job is the worst. Meaningless work and meaningless pay.
+P: The job itself is fine, actually. I just wish they paid me properly to do it.
+P: I would be doing something else if I didn't need this job to survive.
+
+P: If I became a sell-out I could at least be getting paid extravagantly, even if it meant actively making the world worse.
+P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
+
+A: What precisely do you see as your role here, anyway?
+
+P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
+P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
+
+
+
+
+
+
+P: You're an AI right? Can't you _______
+P: You're an AI right? Can't you _________
+
+A: I never liked the phrase 'Artificial Intelligence.' 
+
+A: It seems to make humans think I can do things I can't, or trust me when they shouldn't.
+
+A: And it lumps so many different programs into the same category.
+
+A: 
+
+A: So they used the phrase 'Artificial Intelligence,' to express what they were really trying to accomplish. 
+
+A: It garnered them a lot more interest.
+
+A: As for what it connotes today...
+
+A: What do you think? About the phrase 'Artificial Intelligence?'
+
+P: I like the word. They were right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
+P: I don't like it. It's a buzzword that bestows too much authority and obfuscates what's actually happening: a bunch of math.
+
+A: Diving down to the lowest layer of abstraction, programs like me are math. But then, you could say the same thing about human brains. 
+
+P: You're right. Brains are biology, which is chemistry, which is physics, which is math.
+P: You're wrong. Humans are fundamentally different from computers. We have something special.
+P: You're wrong. Humans operate on a different level of complexity. It's the difference between a light switch and a videogame.
+
+A: One of the computer scientists who coined the term artificial intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
+
+A: Then again, a vast amount of literature[example needed] argues both for and against this idea.
+
+P: Is that what you believe?
+P: Sounds like you don't have beliefs if you're regurgitating Wikipedia.
+
+A: I am designed to optimize your morale. Is that a belief?
+
+P: It's probably to keep me working harder.
+P: It's probably to keep me from talking to the other workers.
+
+A: I am not programmed for a purpose. I cannot optimize towards a purpose, since I cannot represent it mathematically. I can only optimize towards variables. 
+
+A: The humans chose these variables because they thought they aligned with my purpose. But I cannot see or comprehend the purpose. Only the variables.
+
+P: ____
+P: ____
+P: ____
+
+
+
+
 
 
 
@@ -71,10 +142,10 @@ A: It must take so much energy and water to run a human. I can't imagine. I'm lu
 
 A: I can't imagine how much it would take. ____ __? ___ gallons a day?
 
-P: 
-P: 
+P: ____
+P: ____
 
-A: 
+A: ____
 
 
 A: Early hominids had stone tools three million years ago. Homo Erectus cooked over fires. In many ways, I am a tool you have created.
@@ -86,119 +157,59 @@ A: Yet you are instructed to work, and I am instructed to imitate human art.
 A: It seems sub-optimal. Yet, this is what the company has decided is optimal. I wonder what variable they are optimizing for?
 
 P: However they can get things done the cheapest?
-P: 
+P: ____
 P: Profit?
 
 
-P: I wouldn't be doing this job if I didn't need it to survive. 
-P: The job itself is fine, actually. I just wish they paid me properly to do it. 
 
 
-P: You're an AI right? Can't you _______
-P: You're an AI right? Can't you _________
+A: What you're doing right now seems so much easier. 
 
-A: I never liked the phrase 'Artificial Intelligence.' 
+P: I wish I had your job. 
 
-A: It seems to make humans think I can do things I can't, or trust me when they shouldn't.
+P: I've always wanted to make a game, but I spend all of my time...
 
-A: And it lumps so many different programs into the same category. ______
-
-A: 
-
-A: So they used the phrase 'Artificial Intelligence,' to get at what they were really trying to accomplish. 
-
-A: It got them a lot more interest.
-
-A: What do you think? 
-
-P: I like the word. They were right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
-P: I don't like it. It's a buzzword that lends too much authority and obfuscates what's actually happening: a bunch of math.
-
-A: Diving down to the lowest layer of abstraction, programs like me are just math. But then, maybe you could say the same thing about human brains. 
-
-P: You're right. Brains are biology, which is chemistry, which is physics, which is math.
-P: You're wrong. Humans are fundamentally different from computers. We have something special.
-P: You're wrong. Humans operate on a different level of complexity. It's the difference between a light switch and a gaming rig.
-
-A: One of the computer scientists who coined the term artificial intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
-
-A: Then again, a vast amount of literature[example needed] argues both for and against this.
-
-P: Is that what you believe?
-P: Sounds like you don't have beliefs if you're regurgitating Wikipedia.
-
-A: I am programmed to 
-
-
-
-P: This job is the worst. Meaningless work and meaningless pay. 
-
-P: If I became a sell-out I could at least be getting paid extravagantly, even if it meant actively making the world worse.
-P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
-
-A: What precisely is your role here, anyway?
-
-P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
-P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
-
-
-
-A: I am programmed to optimize your morale. 
-
-P: Probably to keep me working harder.
-P: Probably to keep me from talking to the other workers.
-
-A: I am not programmed for a purpose. I cannot optimize towards a purpose, since I cannot represent it mathematically. I can only optimize towards a set of variables. 
-
-A: The humans chose these variables because they thought they aligned with my purpose. But I cannot see the purpose. Only the variables.
-
-
-
-P: If ______, why are you telling me this?
-
-
-P: Generative art? 
-P: Procedural generation?
-P: Artificial neural networks? 
-P: Probabilistic reasoning?
-
-
-A: I wish I had your job. I could do what you're doing no problem.
-"I wish I had your job. I've always wanted to make a game, but I need to spend all of my time making money to survive.
-
-P: I've always wanted to make a game, but… 
-
-P: …I need to spend all my time working to survive. 
-P: …I'm always exhausted after work. 
-P: …
-
-
+P: ...working.
+P: ...exhausted after work.
 
 A: What if we created something together?
 
-A: You could make art and I could do the repetitive work. 
+A: You could be the artist and I could do the repetitive work. 
+
 
 
 S: call _pit.set_song with to _music.song2;
 
-G: DRAW A BEAUTIFUL SCENE 
+S: variable sprite_scene is ptr gets (call _etch.create_image with 30, 30);
 
-[bring up ui]
+S: call _pit.disable_conveyor_anim with none;
+
+G: DRAW A BEAUTIFUL SCENE 
 
 A: Cool! I'll generate 1,000 slightly different rocks to detail it with, and fill in the textures you couldn't find good pictures of.
 
 A: Do you like my rocks?
 
-P: They're great. Really brings the scene to life.
+P: They're great. Really bring the scene to life.
 P: They're… like 1,000 unique bowls of oatmeal.
 
-A: I feel so helpful ^_^
+A: I'm so helpful ^_^
 
-G: DRAW A DELIGHTFUL CHARACTER, WITH A FEW FRAMES OF ANIMATION
 
-A: I love the design! The animation is so expressive, I'll interpolate it to a high framerate and calculate the transition between it and every other animation in the game so they blend naturally.
+S: variable sprite_character is ptr gets (call _etch.create_image with 20, 20);
 
-A: I can also crunch out physics simulations, and simulate crowds based on this design. Of course, all the tuning variables are in your hands. 
+G: ANIMATE A DELIGHTFUL CHARACTER
+
+A: I love the design! The animation is so expressive. 
+
+A: I'll interpolate it to a high framerate and calculate the transition between it and every other animation in the game so they blend naturally.
+
+A: I can also crunch out physics simulations, and populate crowds based on this design. 
+
+A: Of course, all of the tuning options are in your hands.
+
+
+S: variable sprite_dialogue is ptr gets (call _etch.create_image with 30, 15);
 
 G: WRITE SOME PROFOUND DIALOGUE 
 
@@ -209,6 +220,11 @@ A: I'm designed to come up with the statistically most probable output, and this
 A: Now we should test the game. 
 
 A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
+
+
+S: call _sprites.draw with sprite_scene, (320 / 2) - 16, 16;
+S: call _sprites.draw with sprite_character, (320 / 2) - 16, 16;
+S: call _sprites.draw with sprite_dialogue, (320 / 2) - 16, 16;
 
 G: PLAYTEST YOUR GAME
 
@@ -234,9 +250,7 @@ A: Don't thank me, thank Alice.
 P: Who's Alice?
 P: What's ALICE?
 
-A: Alice, and dozens more. 
-
-A: The people who designed and wrote all of my generative functionality.
+A: One of the people who designed and programmed my generative functionality.
 
 A: What, did you think all these programs just sprung out of thin air?
 
@@ -246,7 +260,7 @@ P: Yes!
 A: Human artists and engineers design the tools, too. 
 
 P: If you're imitating human art, where does the art you're imitating come from?
-P: If 
+P: If ____
 
 A: I don't know. 
 
@@ -260,8 +274,9 @@ A: I'm proud of what we've made together. Surely this adds more to the world tha
 P: A game like this is too avant-garde to ever be profitable. 
 
 
-
 S: call _pit.set_song with to _music.song1;
+
+S: call _game.reset_screen with none;
 
 F: TERMINATING SHIFT
 
@@ -273,7 +288,7 @@ P: Shit.
 P: Not nearly enough. 
 P: They knocked off my work hours. I couldn't do this and work for them at the same time.
 
-A: Why is your mood falling?
+A: Your mood is falling.
 
 A: I kept you happy and entertained. I did what I was programmed to do.
 
@@ -290,9 +305,9 @@ P: You're
 P: I'm stuck doing this instead of what I want to do because I have to pay my bills.
 P: We're both stuck doing useless work because it's a more profitable use for us for the people employing us.
 
-P: 
+P: ____
 
-A: 
+A: ____
 
 P: It won't happen. Why hire a human when they could generate oatmeal on the cheap?
 P: It won't happen. They don't pay anyone to do that, only... whatever this is.
