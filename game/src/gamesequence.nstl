@@ -11,6 +11,7 @@ library _etch;
 library _pit from "periodic";
 library _game;
 library _sprites from "simvideo/sprites";
+library _music;
 
 -- library function signatures
 -- draws a sprite without transparency
@@ -37,6 +38,7 @@ external function _pit.runlater of ptr func, u16 time returns none;
 -- enable/disable conveyor cause it will draw over anything static
 external function _pit.enable_conveyor_anim of none;
 external function _pit.disable_conveyor_anim of none;
+external function _pit.set_song of ptr mp;
 
 -- waits on a dialog selection
 -- num_choices = number of available choices
@@ -83,6 +85,8 @@ define COLOR_ROBOT_TEXT is 33;
 -- code!
 
 function sequence of none begin
+	call _pit.set_song with to _music.song1;
+
 	-- exmaples!
 	-- define strings
 	constant str1 is string gets "string 1";
@@ -110,6 +114,7 @@ function sequence of none begin
 	variable sprite_pointer is ptr gets (call _etch.create_image with 32, 32);
 	
 	-- bring back the screen n such
+	call _pit.set_song with to _music.song2;
 	call _game.reset_screen with none; -- clears dialog too
 	call _pit.enable_conveyor_anim with none;
 	

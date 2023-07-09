@@ -69,7 +69,7 @@ function animate_conveyor of none begin
 	if time >= conveyor_next then
 		-- are we animating the full thing or just margins
 		if (u8 at (to _pit.conveyor_anim_enabled)) = 0 then
-			call animate_conveyor_margins with none;
+			call animate_conveyor_margins with time;
 			return;
 		end if
 		
@@ -171,9 +171,44 @@ function animate_conveyor of none begin
 	end if
 end function
 
-function animate_conveyor_margins of none begin
+function animate_conveyor_margins of u32 time begin
+	call _util.buffer_screen with none;
+	
+	variable conv_width is i16 gets (call _sprites.get_width with to _spritedata.conveyorbelt);
+	variable bg_height is i16 gets (call _sprites.get_height with to _spritedata.bg);
+	
+	variable box_w is i16 gets (call _sprites.get_width with to _spritedata.box);
+	variable box_h is i16 gets (call _sprites.get_height with to _spritedata.box);
+	
+	variable box_base_y is i16 gets bg_height - 16;
+	variable box_x is i16 gets conveyor_start + 12 - conv_width;
+	variable box_y is i16 gets box_target_y;
+	
+	-- redraw margins
+	--call _sprites.draw_part with to _spritedata.bg, 0, box_base_y, 0, box_base_y, 32, box_h;
+	--call _sprites.draw_part with to _spritedata.bg, SCREEN_WIDTH - 32, box_base_y, SCREEN_WIDTH - 32, box_base_y, 32, box_h;
+	
+	-- box
+	variable bw is i16;
+	if (box_x + box_w) >= 32 then
+		bw gets 32;
+	else
+		bw gets box_x + box_w;
+	end if
+	
+	--call _sprites.draw_part_transparent with to _spritedata.box, 0, box_base_y, 0 - box_x, 0, bw, box_h;
+
+	conveyor_next gets time + CONVEYOR_PERIOD;
+		
+	if conveyor_start < 5 then
+		conveyor_start gets conv_width - 1;
+	else
+		conveyor_start gets conveyor_start - 5;
+	end if
+
 	-- TODO
 	-- there's a 32 pixel wide area on each side
+	call _util.unbuffer_screen with none;
 end function
 
 -- repaints the area of sp1 clipped by sp2

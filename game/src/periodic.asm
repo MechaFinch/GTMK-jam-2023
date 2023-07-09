@@ -65,8 +65,10 @@ runlater_array_len: dw RUNLATER_SIZE_INC
 
 conveyor_anim_enabled:	db 1
 
-music_pointer: 	resp 1;
-music_start:	resp 1;
+music_pointer: 		resp 1;
+music_start:		resp 1;
+music_start_time:	resp 1;
+dummy_music:		dp 0;
 
 
 ; initializes the system
@@ -80,9 +82,11 @@ init:
 	
 	MOVW [runlater_array_ptr], D:A
 	
-	MOVW D:A, music.song1
+	MOVW D:A, dummy_music
 	MOVW [music_pointer], D:A
 	MOVW [music_start], D:A
+	MOVZ D:A, 0
+	MOVW [music_start_time], D:A
 	
 	POP BP
 	RET
@@ -169,6 +173,10 @@ pit_handler:
 	AND F, K
 	JZ .restart_track
 	
+	MOVW L:K, [music_start_time]
+	ADD C, K
+	ADC B, L
+	
 	CMP J, B
 	JA .midi_yes
 	JB .no_music
@@ -184,6 +192,7 @@ pit_handler:
 
 .restart_track:
 	MOVW D:A, [music_start]
+	MOVW [music_start_time], J:I
 	MOVW [music_pointer], D:A
 
 .no_music:
@@ -475,4 +484,9 @@ set_song:
 	MOVW D:A, [SP + 4]
 	MOVW [music_start], D:A
 	MOVW [music_pointer], D:A
+	MOVW D:A, [millis_counter]
+	MOVW [music_start_time], D:A
+	
+	MOVW D:A, MIDI_START
+	MOV [D:A + 4], AL ; all off
 	RET

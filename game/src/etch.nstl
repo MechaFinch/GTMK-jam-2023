@@ -10,6 +10,21 @@ library _gutil from "simvideo/gutil";
 library _pit from "periodic.asm";
 library _shapes from "simvideo/shapes";
 library _dma from "memory/dma";
+library _sprites from "simvideo/sprites";
+library _spritedata from "../resources/spritedata";
+
+-- draws a sprite without transparency
+external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
+-- draws a sprite with transparency
+external function _sprites.draw_transparent of u8 pointer sp, i16 x, i16 y returns none;
+-- draws a part of a sprite without transparency
+external function _sprites.draw_part of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+-- draws a part of a sprite with transparency
+external function _sprites.draw_part_transparent of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+-- gets the width of a sprite
+external function _sprites.get_width of u8 pointer sp returns u16;
+-- gets the height of a sprite
+external function _sprites.get_height of u8 pointer sp returns u16;
 
 -- halts, then returns
 external function _util.halt of none returns none;
@@ -27,10 +42,12 @@ external function _shapes.fill_rect of i16 x1, i16 y1, i16 w, i16 h, u8 fgc retu
 -- allocate n bytes on the heap, returning a pointer to it
 external function _dma.malloc of u32 n returns ptr;
 
-define DRAW_AREA_START_X is 15;
-define DRAW_AREA_START_Y is 15;
-define DRAW_AREA_WIDTH is 290;
-define DRAW_AREA_HEIGHT is 170;
+variable DRAW_AREA_START_X is i16 gets 0;
+variable DRAW_AREA_START_Y is i16 gets 0;
+variable DRAW_AREA_WIDTH is i16 gets 0;
+variable DRAW_AREA_HEIGHT is i16 gets 0;
+variable DRAWING_PIXEL_WIDTH is i16 gets 0;
+variable DRAWING_PIXEL_HEIGHT is i16 gets 0;
 define DRAW_FGC_IDX is 1;
 define DRAW_BGC_IDX is 2;
 
@@ -38,8 +55,6 @@ define SELECTION_BOX_IDX is 17;
 define DRAW_BORDER_IDX is 18;
 
 define DRAWING_PIXEL_SIZE is 4;
-define DRAWING_PIXEL_WIDTH is DRAW_AREA_WIDTH / DRAWING_PIXEL_SIZE;
-define DRAWING_PIXEL_HEIGHT is DRAW_AREA_HEIGHT / DRAWING_PIXEL_SIZE;
 
 define KEY_UP is 0x26;
 define KEY_DOWN is 0x28;
@@ -51,17 +66,22 @@ define KEY_SHIFT is 0x10;
 
 -- lets the user etch-a-sketch a drawing
 function create_image of u16 width, u16 height returns u8 pointer begin
-	-- allocate image
-	variable sketch is u8 pointer gets (call _dma.malloc with 4 + (DRAWING_PIXEL_WIDTH * DRAWING_PIXEL_HEIGHT));
+	call _sprites.draw_transparent with to _spritedata.screen, 32, 4;
 	
---	u16 at sketch gets width;
---	sketch gets sketch + 2;
---	u16 at sketch gets height;
---	sketch gets sketch - 2;
+	DRAWING_PIXEL_WIDTH gets width;
+	DRAWING_PIXEL_HEIGHT gets height;
+	DRAW_AREA_WIDTH gets width * DRAWING_PIXEL_SIZE;
+	DRAW_AREA_HEIGHT gets height * DRAWING_PIXEL_SIZE;
+	
+	DRAW_AREA_START_X gets (320 / 2) - (DRAW_AREA_WIDTH / 2);
+	DRAW_AREA_START_Y gets 78 - (DRAW_AREA_HEIGHT / 2);
 
-	u16 at sketch gets DRAWING_PIXEL_WIDTH;
+	-- allocate image
+	variable sketch is u8 pointer gets (call _dma.malloc with 4 + (DRAWING_PIXEL_WIDTH * DRAWING_PIXEL_HEIGHT) as u32);
+	
+	u16 at sketch gets width;
 	sketch gets sketch + 2;
-	u16 at sketch gets DRAWING_PIXEL_HEIGHT;
+	u16 at sketch gets height;
 	sketch gets sketch - 2;
 	
 	-- clear sketch
@@ -117,7 +137,7 @@ function create_image of u16 width, u16 height returns u8 pointer begin
 				shift_held gets 1;
 				
 				call plot_pixel with sketch, x, y, DRAW_FGC_IDX;
-			elseif pressed_key = KEY_ENTER then
+			elseif (pressed_key = KEY_ENTER) or (pressed_key = KEY_SPACE) then
 				-- finish
 				return sketch;
 			elseif pressed_key = KEY_UP then
