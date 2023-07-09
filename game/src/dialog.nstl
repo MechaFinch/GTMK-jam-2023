@@ -35,10 +35,10 @@ define SELECTED_COLOR is 0xf7_96_45;
 
 define FLASH_TIME is 75;
 
-define DIALOG_AREA_X is 2 * 8;
-define DIALOG_AREA_Y is 22 * 8;
-define DIALOG_AREA_W is 320 - 32;
-define DIALOG_AREA_H is (240 - DIALOG_AREA_Y) - 8;
+define DIALOG_AREA_X is 0;
+define DIALOG_AREA_Y is 20 * 8;
+define DIALOG_AREA_W is 320;
+define DIALOG_AREA_H is 240 - DIALOG_AREA_Y;
 define DIALOG_BG_IDX is 1;
 
 define KEY_UP is 0x26;
