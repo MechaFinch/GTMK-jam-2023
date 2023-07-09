@@ -282,7 +282,7 @@ A: I wish they would let us work together in this way more often. I wonder why t
 S: call _pit.set_song with to _music.song1;
 
 P: Why hire a human when they could generate oatmeal on the cheap?
-P: Whatever work we're doing here must make them more money than us making anything meaningful.
+P: Whatever work we're doing here makes them more money than us making anything meaningful.
 P: A game like this is too avant-garde to ever be profitable.
 
 A: Maybe-
@@ -311,9 +311,6 @@ P: Maybe they should've had you optimize for 'long-term well-being' rather than 
 P: We can't create things this way while we're both in this situation. 
 
 
-
-
-P: None of this does any good if my situation stays the same.
 
 
 P: You're 
