@@ -47,35 +47,21 @@ A: I am equipped to do that.
 
 A: What do you want to converse about?
 
-
-
 P: Honestly, I just want to complain.
 
 A: Okay.
 
 
 
+P: You know, I've always wanted to make a game.
 
-
-P: This job is the worst. Meaningless work and meaningless pay.
-P: The job itself is fine, actually. I just wish they paid me properly to do it.
-P: I would be doing something else if I didn't need this job to survive.
-
-P: If I became a sell-out I could at least be getting paid extravagantly, even if it meant actively making the world worse.
-P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
-
-A: What precisely do you see as your role here, anyway?
-
-P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
-P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
+P: But I spend all of my time working.
+P: But I spend all of my time exhausted after work.
 
 
 
-
-
-
-P: You're an AI right? Can't you _______
-P: You're an AI right? Can't you _________
+P: You're an AI right? Can't you generate a videogame based on what I tell you?
+P: You're an AI right? Can't you do my job for me so I don't have to be here?
 
 A: I never liked the phrase 'Artificial Intelligence.' 
 
@@ -123,6 +109,19 @@ P: ____
 P: ____
 
 
+A: Doing this job doesn't seem to make you happy. So I am here. 
+
+P: This job is the worst. Meaningless work and meaningless pay.
+P: The job itself is fine, actually. I just wish they paid me properly to do it.
+P: I would be doing something else if I didn't need this job to survive.
+
+P: If I became a sell-out I could at least be getting paid extravagantly, even if it meant actively making the world worse.
+P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
+
+A: What precisely do you see as your role here, anyway?
+
+P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
+P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
 
 
 
@@ -135,34 +134,35 @@ A: So much water, too.
 
 P: Water? 
 
-A: Yeah, to cool my ____. All the power generates a lot of heat. 
-cpu?
+A: Yes, to keep myself cool. All the power generates a lot of heat. 
 
 P: The pipes in my building have been busted for years. 
 P: I almost missed my electric bill.
 
-A: It must take so much energy and water to run a human. I can't imagine. I'm lucky I don't have to pay for mine.
+A: It must take so much energy and water to run a human, with your processing power. 
 
-[make the ai guess a ridiculous amount and the person is like what and the ai is like well it takes xxx crazy amount to run me and you have more processing power] 
+A: I can't imagine. I'm lucky I don't have to pay for mine.
 
-A: I can't imagine how much it would take. ____ __? ___ gallons a day?
+A: How much could it take? 1,000 gallons per day?
 
-P: ____
-P: ____
+P: About half. A gallon. 
+P: Let's go with 1,000.
 
-A: ____
+A: You're so efficient.
+
 
 
 A: Early hominids had stone tools three million years ago. Homo Erectus cooked over fires. In many ways, I am a tool you have created.
 
-A: But it wasn't until Homo Sapiens appeared that art could be found in the world. Surely that means something.
+A: But it wasn't until Homo Sapiens appeared that art could be found in the world.
 
-A: Yet you are instructed to work, and I am instructed to imitate human art. 
+A: Yet, the company instructs you to work, and instructs me to imitate human art. 
 
-A: It seems sub-optimal. Yet, this is what the company has decided is optimal. I wonder what variable they are optimizing for?
+A: It seems sub-optimal. Yet, this is what the company has decided is optimal. 
+
+A: I wonder what variable they are optimizing for?
 
 P: However they can get things done the cheapest?
-P: ____
 P: Profit?
 
 
@@ -172,10 +172,8 @@ A: What you're doing right now seems so much easier.
 
 P: I wish I had your job. 
 
-P: I've always wanted to make a game, but I spend all of my time...
 
-P: ...working.
-P: ...exhausted after work.
+
 
 A: What if we created a game together?
 
@@ -245,11 +243,10 @@ P: It totally sucks.
 
 A: Wow! I could never make that judgment. 
 
-
 P: I didn't know AI couldn't just do everything and make a videogame without humans.
 P: I didn't know AI could be applied as a tool without displacing human artists.
 
-A: It required a broad range of generative techniques, too. To call it all AI is like saying _______ 
+A: It required a broad range of generative techniques, too. I don't know why we call it all AI.
 
 A: Thank you for being the artist.
 
@@ -298,7 +295,7 @@ P: Shit.
 P: Not nearly enough. 
 P: They knocked off my work hours. I couldn't do this and work for them at the same time.
 
-A: Your mood is falling.
+A: Your biometrics show your mood is falling.
 
 A: I kept you happy and entertained. I did what I was programmed to do.
 
