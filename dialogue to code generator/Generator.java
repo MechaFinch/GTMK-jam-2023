@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Generator {
 
-    static final int charsPerLine = 35;
     static final String readLinesStartingWith = "PAFG S";
     //parallel with above
     static final String [] colors = {"COLOR_HUMAN_TEXT", "COLOR_ROBOT_TEXT", "COLOR_WHITE", "COLOR_WHITE"};
@@ -18,8 +17,9 @@ public class Generator {
     static final String [] choiceColors = {"COLOR_CHOICE1", "COLOR_CHOICE2", "COLOR_CHOICE3"};
     static final String color2 = "COLOR_TRANSPARENT";
 
-    static final int lineHeight = 2;
-    static final int defaultVerticalPos = 22;
+    static final int lineHeight = 1;
+    static final int defaultVerticalPos = 21;
+    static final int charsPerLine = 38;
 
     static final String waitInput = "\ncall _dialog.wait_dialog with none;";
     static final String clearCode = "\ncall _dialog.reset_box with none;";
@@ -33,7 +33,8 @@ public class Generator {
         int [] lineBreakCounts = new int[lines.length];
 
         for(int i = 0; i < lines.length; i++) {
-            lines[i] = determineLines(lines[i], lineBreakCounts, i);
+            lineBreakCounts[i] = countLines(lines[i]);
+            lines[i] = formatDialogString(lines[i]);
         }
 
 
@@ -144,8 +145,15 @@ public class Generator {
 
 
 
-    //count how many lines this would take and insert line breaks 
-    public static String determineLines(String str, int[] lineCounts, int i) {
+    //count how many lines this would take
+    public static int countLines(String str) {
+
+        return (int)Math.floor((str.length() / charsPerLine));
+
+    }
+
+    //insert line breaks, \ out quotes
+    public static String formatDialogString(String str) {
 
         if(str.length() > 0 && str.charAt(0) == 'S') {
             return str;
@@ -161,8 +169,11 @@ public class Generator {
             }
         }
 
-        lineCounts[i] = counter;
+        str.replaceAll("\"", "\\\"");
+        str.replaceAll("\'", "\\\'");
+
         return str;
+
     }
 
 
