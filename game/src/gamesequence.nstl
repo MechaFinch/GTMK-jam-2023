@@ -12,6 +12,7 @@ library _pit from "periodic";
 library _game;
 library _sprites from "simvideo/sprites";
 library _music;
+library _spritedata from "../resources/spritedata";
 
 -- library function signatures
 -- draws a sprite without transparency
@@ -62,9 +63,11 @@ external function _text.a_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 
 -- resets the screen
 external function _game.reset_screen of none;
 -- sets the sprite for the person
-external function set_person of ptr sprite_pointer;
+external function _game.set_person of ptr sprite_pointer;
 -- sets the sprite for the robot
-external function set_bobot of ptr sprite_pointer;
+external function _game.set_bobot of ptr sprite_pointer;
+external function _game.draw_person of none;
+external function _game.draw_bobot of none;
 
 -- more stuff can be found in the other source files and the copy of the standard library
 -- each library of the standard library has 1 or 2 files, one .nstl and optionally one .asm.
@@ -265,6 +268,9 @@ call _dialog.wait_choice with 2, 0, 1, 0;
 
 call _dialog.reset_box with none;
 
+call _game.set_person with to _spritedata.person2;
+call _game.draw_person with none;
+
 constant str58 is string gets "You're an AI right? Can't you\ngenerate a videogame based on what I\ntell you?";
 call _text.a_string with to str58, sizeof str58, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str59 is string gets "You're an AI right? Can't you do my\njob for me so I don't have to\nbe here?";
@@ -272,6 +278,8 @@ call _text.a_string with to str59, sizeof str59, COLOR_CHOICE2, COLOR_TRANSPAREN
 call _dialog.wait_choice with 2, 2, 2, 0;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot2;
+call _game.draw_bobot with none;
 
 constant str61 is string gets "I never liked the phrase\n'Artificial Intelligence.' ";
 call _text.a_string with to str61, sizeof str61, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -328,6 +336,8 @@ call _text.a_string with to str75, sizeof str75, COLOR_ROBOT_TEXT, COLOR_TRANSPA
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot1;
+call _game.draw_bobot with none;
 
 constant str77 is string gets "What do you think? About the phrase\n'Artificial Intelligence?'";
 call _text.a_string with to str77, sizeof str77, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -404,6 +414,8 @@ call _text.a_string with to str100, sizeof str100, COLOR_CHOICE2, COLOR_TRANSPAR
 call _dialog.wait_choice with 2, 1, 1, 0;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot3;
+call _game.draw_bobot with none;
 
 constant str102 is string gets "I am not programmed for a purpose.\nI cannot optimize towards a\npurpose, since I cannot represent it\nmathematically. I can only\noptimize towards variables. ";
 call _text.a_string with to str102, sizeof str102, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -411,6 +423,8 @@ call _text.a_string with to str102, sizeof str102, COLOR_ROBOT_TEXT, COLOR_TRANS
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot1;
+call _game.draw_bobot with none;
 
 constant str104 is string gets "The humans chose these variables\nbecause they thought they aligned\nwith my purpose. But I cannot\nsee or comprehend the purpose.\nOnly the variables.";
 call _text.a_string with to str104, sizeof str104, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -428,6 +442,8 @@ call _text.a_string with to str108, sizeof str108, COLOR_CHOICE3, COLOR_TRANSPAR
 call _dialog.wait_choice with 3, 1, 1, 1;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot3;
+call _game.draw_bobot with none;
 
 constant str110 is string gets "No one seems to be happy doing this\njob. So I am here.";
 call _text.a_string with to str110, sizeof str110, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -453,6 +469,8 @@ call _text.a_string with to str117, sizeof str117, COLOR_CHOICE2, COLOR_TRANSPAR
 call _dialog.wait_choice with 2, 3, 3, 0;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot1;
+call _game.draw_bobot with none;
 
 constant str119 is string gets "What precisely do you see as your\nrole here, anyway?";
 call _text.a_string with to str119, sizeof str119, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -511,6 +529,8 @@ call _text.a_string with to str135, sizeof str135, COLOR_CHOICE2, COLOR_TRANSPAR
 call _dialog.wait_choice with 2, 1, 0, 0;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot2;
+call _game.draw_bobot with none;
 
 constant str137 is string gets "It's odd. Making things like a\nhuman is difficult.";
 call _text.a_string with to str137, sizeof str137, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -582,6 +602,8 @@ call _text.a_string with to str157, sizeof str157, COLOR_CHOICE2, COLOR_TRANSPAR
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
+call _game.set_bobot with to _spritedata.bobot1;
+call _game.draw_bobot with none;
 
 constant str159 is string gets "You're so efficient!";
 call _text.a_string with to str159, sizeof str159, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
@@ -659,7 +681,7 @@ call _pit.disable_conveyor_anim with none;
 call _dialog.reset_box with none;
 
 constant str185 is string gets "DRAW A BEAUTIFUL SCENE ";
-call _text.a_string with to str185, sizeof str185, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+call _dialog.type_text with to str185, sizeof str185, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1, 50;
 
 call _dialog.wait_dialog with none;
 
@@ -699,7 +721,7 @@ call _game.reset_screen with none;
 call _dialog.reset_box with none;
 
 constant str200 is string gets "ANIMATE A DELIGHTFUL CHARACTER";
-call _text.a_string with to str200, sizeof str200, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+call _dialog.type_text with to str200, sizeof str200, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1, 50;
 
 call _dialog.wait_dialog with none;
 
@@ -738,7 +760,7 @@ call _game.reset_screen with none;
 call _dialog.reset_box with none;
 
 constant str214 is string gets "WRITE SOME PROFOUND DIALOGUE ";
-call _text.a_string with to str214, sizeof str214, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+call _dialog.type_text with to str214, sizeof str214, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1, 50;
 
 call _dialog.wait_dialog with none;
 
@@ -758,6 +780,7 @@ call _text.a_string with to str220, sizeof str220, COLOR_ROBOT_TEXT, COLOR_TRANS
 
 call _dialog.wait_dialog with none;
 
+call _game.reset_screen with none;
 call _dialog.reset_box with none;
 
 constant str224 is string gets "I didn't know AI couldn't just do\neverything and make a videogame\nwithout humans.";
@@ -905,12 +928,15 @@ call _text.a_string with to str270, sizeof str270, COLOR_ROBOT_TEXT, COLOR_TRANS
 
 call _dialog.wait_dialog with none;
 
-call _game.reset_screen with none;
-
 call _dialog.reset_box with none;
 
 constant str274 is string gets "TERMINATING SHIFT";
 call _text.a_string with to str274, sizeof str274, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+
+call _game.set_person with to _spritedata.person1;
+call _game.draw_person with none;
+call _game.set_bobot with to _spritedata.bobot3;
+call _game.draw_bobot with none;
 
 call _dialog.wait_dialog with none;
 
@@ -1038,11 +1064,18 @@ call _dialog.wait_choice with 1, 0, 0, 0;
 
 call _dialog.reset_box with none;
 
+call _game.set_bobot with to _spritedata.bobot2;
+call _game.draw_bobot with none;
+
 constant str315 is string gets "I love working at the repetitive\nmanual labor factory.";
 call _text.a_string with to str315, sizeof str315, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 call _dialog.wait_choice with 1, 1, 0, 0;
 
 call _dialog.reset_box with none;
+call _game.set_person with to _spritedata.person2;
+call _game.draw_person with none;
+call _game.set_bobot with to _spritedata.bobot1;
+call _game.draw_bobot with none;
 
 constant str317 is string gets "END - THANK YOU FOR PLAYING!!";
 call _text.a_string with to str317, sizeof str317, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;

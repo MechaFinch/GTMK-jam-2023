@@ -132,6 +132,16 @@ function set_bobot of ptr sprite_pointer begin
 	bobot_sprite_ptr gets sprite_pointer;
 end function
 
+function draw_person of none begin
+	variable bg_height is u16 gets (call _sprites.get_height with to _spritedata.bg);
+	call _sprites.draw_transparent with person_sprite_ptr, 55, bg_height - (call _sprites.get_height with person_sprite_ptr);
+end function
+
+function draw_bobot of none begin
+	variable bg_height is u16 gets (call _sprites.get_height with to _spritedata.bg);
+	call _sprites.draw_transparent with bobot_sprite_ptr, 206, bg_height - ((call _sprites.get_height with bobot_sprite_ptr) + 14);
+end function
+
 -- resets the screen
 function reset_screen of none begin
 	-- draw initial scene
