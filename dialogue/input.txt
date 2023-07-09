@@ -220,7 +220,7 @@ A: Incredible- I've been trained on millions of words, and I've never seen this 
 
 A: I'm designed to come up with the statistically most probable output, and this has soundly surprised me! 
 
-
+S: call _game.reset_screen with none;
 
 P: I didn't know AI couldn't just do everything and make a videogame without humans.
 P: I didn't know AI could be applied as a tool without displacing human artists.
@@ -269,8 +269,6 @@ P: Whatever we're doing here makes them more money than us making anything meani
 P: A game like this is too avant-garde to ever be profitable.
 
 A: Maybe-
-
-S: call _game.reset_screen with none;
 
 F: TERMINATING SHIFT
 
