@@ -80,11 +80,13 @@ A: What do you think? About the phrase 'Artificial Intelligence?'
 P: I like the word. They were right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
 P: I don't like it. It's a buzzword that bestows too much authority and obfuscates what's actually happening: a bunch of math.
 
-A: Diving down to the lowest layer of abstraction, programs like me are math. But then, you could say the same thing about human brains. 
+A: Diving down to the lowest layer of abstraction, programs like me are math. But then, you could say the same thing about human brains.
 
-P: You're right. Brains are biology, which is chemistry, which is physics, which is math.
-P: You're wrong. Humans are fundamentally different from computers. We have something special.
-P: You're wrong. Humans operate on a different level of complexity. It's the difference between a light switch and a videogame.
+A: Would you say the same?
+
+P: Yes. Brains are biology, which is chemistry, which is physics, which is math.
+P: No. Humans are fundamentally different from computers. We have something special.
+P: No. Humans operate on a different level of complexity. It's a light switch versus a car.
 
 A: One of the computer scientists who coined the term artificial intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
 
@@ -282,7 +284,7 @@ A: I wish they would let us work together in this way more often. I wonder why t
 S: call _pit.set_song with to _music.song1;
 
 P: Why hire a human when they could generate oatmeal on the cheap?
-P: Whatever work we're doing here makes them more money than us making anything meaningful.
+P: Whatever we're doing here makes them more money than us making anything meaningful.
 P: A game like this is too avant-garde to ever be profitable.
 
 A: Maybe-
@@ -311,7 +313,7 @@ P: Maybe they should've had you optimize for 'long-term well-being' rather than 
 P: We can't create things this way while we're both in this situation. 
 
 P: I'm stuck doing this instead of what I want to do because I have to pay my bills.
-P: You're here instead of crunching numbers on important problems because it generates profit.
+P: You're here instead of crunching numbers on important problems because you increase profits.
 P: We're both stuck doing useless work because it's a more profitable use for us for the people employing us.
 
 P: We're stuck where each other should be because it makes somebody more money for it to be this way. 
