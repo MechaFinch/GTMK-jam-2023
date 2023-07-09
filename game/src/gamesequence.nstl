@@ -45,11 +45,13 @@ external function _pit.set_song of ptr mp;
 -- c1_h = height in lines of choice 1
 -- c2_h = height in lines of choice 2
 -- c3_h = height in lines of choice 3
-external function _dialog.wait_dialog of u8 num_choices, u8 c1_h, u8 c2_h, u8 c3_h;
+external function _dialog.wait_choice of u8 num_choices, u8 c1_h, u8 c2_h, u8 c3_h;
 -- types out text
 external function _dialog.type_text of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col, u16 rate;
 -- blanks the dialog box
 external function _dialog.reset_box of none;
+-- waits for input
+external function _dialog.wait_dialog of none;
 
 -- lets the user etch-a-sketch a drawing
 external function _etch.create_image of u16 w, u16 h returns u8 pointer;
@@ -85,6 +87,10 @@ define COLOR_ROBOT_TEXT is 33;
 -- code!
 
 function sequence of none begin
+
+end function
+
+function sequence_template of none begin
 	call _pit.set_song with to _music.song1;
 
 	-- exmaples!
@@ -102,7 +108,7 @@ function sequence of none begin
 	call _dialog.type_text with to str2, sizeof str2, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 2, 10;
 	
 	-- make a choice
-	call _dialog.wait_dialog with 2, 1, 2, 0;
+	call _dialog.wait_choice with 2, 1, 2, 0;
 	
 	constant str3 is string gets "draw!";
 	call _dialog.reset_box with none;
