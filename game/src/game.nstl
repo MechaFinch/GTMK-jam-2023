@@ -26,8 +26,12 @@ library _gamesequence;
 
 -- draws a sprite without transparency
 external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
--- draws a part of the sprite without transparency
+-- draws a sprite with transparency
+external function _sprites.draw_transparent of u8 pointer sp, i16 x, i16 y returns none;
+-- draws a part of a sprite without transparency
 external function _sprites.draw_part of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+-- draws a part of a sprite with transparency
+external function _sprites.draw_part_transparent of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
 -- gets the width of a sprite
 external function _sprites.get_width of u8 pointer sp returns u16;
 -- gets the height of a sprite
@@ -35,6 +39,8 @@ external function _sprites.get_height of u8 pointer sp returns u16;
 
 -- sets the global palette
 external function _gutil.set_palette of u8 pointer palette returns none;
+-- sets a single color
+external function _gutil.set_color of u8 idx, u32 rgb returns none;
 
 -- aligned single character
 external function _text.a_char of u8 chr, u8 fgc, u8 bgc, u8 row, u8 col returns none;
@@ -79,6 +85,9 @@ external function _pit.disable_conveyor_anim of none;
 external function _gamesequence.sequence of none;
 --external function _spriteanim.animate_conveyor of none;
 
+variable person_sprite_ptr is ptr;
+variable bobot_sprite_ptr is ptr;
+
 function main of none begin
 	call _util.disable_interrupts with none;
 
@@ -86,6 +95,11 @@ function main of none begin
 	call _dma.init with 0x0008_0000, 0x0004_0000;
 	call _pit.init with none;
 	call _gutil.set_palette with to _palettes.p1;
+	
+	call set_person with to _spritedata.person1;
+	call set_bobot with to _spritedata.bobot1;
+	call _gutil.set_color with 32, 0xf7_96_45; -- human text
+	call _gutil.set_color with 33, 0x4b_b2_ff; -- robot text
 	
 	-- modify some animation palettes
 	call _pit.end_window_flicker with none;
@@ -108,6 +122,16 @@ function main of none begin
 	end while
 end function
 
+-- sets the sprite for the person
+function set_person of ptr sprite_pointer begin
+	person_sprite_ptr gets sprite_pointer;
+end function
+
+-- sets the sprite for the robot
+function set_bobot of ptr sprite_pointer begin
+	bobot_sprite_ptr gets sprite_pointer;
+end function
+
 -- resets the screen
 function reset_screen of none begin
 	-- draw initial scene
@@ -115,8 +139,9 @@ function reset_screen of none begin
 	
 	variable x is u16;
 	variable bg_height is u16 gets (call _sprites.get_height with to _spritedata.bg);
-	variable conv_height is u16 gets (call _sprites.get_height with to _spritedata.conveyorbelt);
 	
+	-- initial conveyor belt
+	variable conv_height is u16 gets (call _sprites.get_height with to _spritedata.conveyorbelt);
 	variable conv_width is u16 gets (call _sprites.get_width with to _spritedata.conveyorbelt);
 	x gets 0;
 	
@@ -127,6 +152,7 @@ function reset_screen of none begin
 	
 	call _sprites.draw_part with to _spritedata.conveyorbelt, x, bg_height, 0, 0, SCREEN_WIDTH - x, conv_height;
 	
+	-- conveyor wheels
 	variable wheel_width is u16 gets (call _sprites.get_width with to _spritedata.conveyorwheels);
 	x gets 0;
 	variable wheel_height is u16 gets conv_height + bg_height;
@@ -135,4 +161,11 @@ function reset_screen of none begin
 		call _sprites.draw with to _spritedata.conveyorwheels, x, wheel_height;
 		x gets x + wheel_width;
 	end until
+	
+	-- the lad
+	call _sprites.draw_transparent with person_sprite_ptr, 55, bg_height - (call _sprites.get_height with person_sprite_ptr);
+	
+	-- the robo
+	call _sprites.draw_transparent with bobot_sprite_ptr, 206, bg_height - ((call _sprites.get_height with bobot_sprite_ptr) + 14);
+	
 end function

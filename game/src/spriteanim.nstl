@@ -10,15 +10,30 @@ library _palettes from "../resources/palettes";
 library _gutil from "simvideo/gutil";
 library _sprites from "simvideo/sprites";
 library _spritedata from "../resources/spritedata";
+library _fxp from "math/fixedpoint";
+library _game;
+library _util;
 
 -- draws a sprite without transparency
 external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
--- draws a part of the sprite without transparency
+-- draws a sprite with transparency
+external function _sprites.draw_transparent of u8 pointer sp, i16 x, i16 y returns none;
+-- draws a part of a sprite without transparency
 external function _sprites.draw_part of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+-- draws a part of a sprite with transparency
+external function _sprites.draw_part_transparent of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
 -- gets the width of a sprite
 external function _sprites.get_width of u8 pointer sp returns u16;
 -- gets the height of a sprite
 external function _sprites.get_height of u8 pointer sp returns u16;
+
+external function _fxp.to1616 of u16 a returns u32;
+external function _fxp.from1616 of u32 a returns u16;
+external function _fxp.muls1616 of i32 a, i32 b returns i32;
+external function _fxp.divs1616 of i32 a, i32 b returns i32;
+
+external function _util.buffer_screen of none;
+external function _util.unbuffer_screen of none;
 
 define SCREEN_WIDTH is 320;
 define SCREEN_HEIGHT is 240;
@@ -26,24 +41,73 @@ define SCREEN_HEIGHT is 240;
 define CONVEYOR_PERIOD is 67; -- 15 fps
 variable conveyor_start is u16 gets 0;
 variable conveyor_next is u32 gets 0;
+
+-- box we can hit
+--variable box_target_x is i16 gets 0;
+variable box_target_y is i16 gets 0;
+variable box_jumping is boolean gets 0;
+variable box_jump_direction is boolean gets 0;
+variable jump_start_time is u32 gets 0;
+
+define JUMP_LENGTH is 1000 * 0x1_0000;
+define TIMING_OFFSET is 0x0000_C000; -- 3/4
+define HEIGHT_OFFSET is 0x0001_0000 - 0x0000_1000; -- 1 - 1/16
+define JUMP_HEIGHT is 0x0010_0000; -- 16
+
+variable box_escaped is boolean gets 1;
+
+-- incoming boxes
+--variable box_right_x is i16 gets 0;
+
 function animate_conveyor of none begin
 	-- is it time to animate
 	variable time is u32 gets u32 at (to _pit.millis_counter);
 	
 	if time >= conveyor_next then
+		-- are we animating the full thing or just margins
+		if (u8 at (to _pit.conveyor_anim_enabled)) = 0 then
+			call animate_conveyor_margins with none;
+			return;
+		end if
+		
+		call _util.buffer_screen with none;
+		
+		variable conv_width is i16 gets (call _sprites.get_width with to _spritedata.conveyorbelt);
+		variable bg_height is i16 gets (call _sprites.get_height with to _spritedata.bg);
+		
+		-- repaint boxes
+		variable box_w is i16 gets (call _sprites.get_width with to _spritedata.box);
+		variable box_h is i16 gets (call _sprites.get_height with to _spritedata.box);
+		
+		variable box_base_y is i16 gets bg_height - 16;
+		variable box_x is i16 gets conveyor_start + 12 - conv_width;
+		variable box_y is i16 gets box_target_y;
+		constant person_x is i16 gets 55;
+		variable person_y is i16 gets bg_height - (call _sprites.get_height with ptr at (to _game.person_sprite_ptr));
+		constant robot_x is i16 gets 206;
+		variable robot_y is i16 gets (call _sprites.get_height with ptr at (to _game.person_sprite_ptr));
+		
+		-- clipping function will handle bounds checks
+		until box_x > SCREEN_WIDTH do		
+			call repaint_clipping_area with to _spritedata.bg, to _spritedata.box, 0, 0, box_x, box_y, 0;
+			call repaint_clipping_area with ptr at (to _game.person_sprite_ptr), to _spritedata.box, person_x, person_y, box_x, box_y, 1;
+			call repaint_clipping_area with ptr at (to _game.bobot_sprite_ptr), to _spritedata.box, robot_x, robot_y, box_x, box_y, 1;
+			
+			box_x gets box_x + conv_width;
+			box_y gets box_base_y;
+		end until
+	
+		-- full thing
 		conveyor_next gets time + CONVEYOR_PERIOD;
 		
 		if conveyor_start < 5 then
-			conveyor_start gets (call _sprites.get_width with to _spritedata.conveyorbelt) - 1;
+			conveyor_start gets conv_width - 1;
 		else
 			conveyor_start gets conveyor_start - 5;
 		end if
 		
-		-- yes it is. animate
 		variable x is u16 gets conveyor_start;
 		
-		variable bg_height is u16 gets (call _sprites.get_height with to _spritedata.bg);
-		variable conv_width is u16 gets (call _sprites.get_width with to _spritedata.conveyorbelt);
 		until x + conv_width >= SCREEN_WIDTH do
 			-- full conveyor sprites
 			call _sprites.draw with to _spritedata.conveyorbelt, x, bg_height;
@@ -56,5 +120,105 @@ function animate_conveyor of none begin
 		-- partial conveyor sprites
 		call _sprites.draw_part with to _spritedata.conveyorbelt, x, bg_height, 0, 0, SCREEN_WIDTH - x, conv_height;
 		call _sprites.draw_part with to _spritedata.conveyorbelt, 0, bg_height, conv_width - conveyor_start, 0, conveyor_start, conv_height;
+		
+		
+		
+		-- box animation
+		if box_jumping then
+			-- compute y position of jump
+			variable dt is u32 gets time - jump_start_time;
+			
+			-- scale to jump length (0, 1)
+			dt gets (call _fxp.divs1616 with JUMP_LENGTH, (call _fxp.to1616 with dt as u16)) + TIMING_OFFSET;
+			-- 2x - x^2
+			dt gets ((call _fxp.muls1616 with 2, dt) - (call _fxp.muls1616 with dt, dt)) - HEIGHT_OFFSET;
+			-- height!
+			box_target_y gets box_base_y - (call _fxp.from1616 with (call _fxp.muls1616 with dt, JUMP_HEIGHT));
+			
+			if (box_x + box_w) < 0 then
+				box_jumping gets 0;
+				box_target_y gets box_base_y;
+			end if
+		else
+			box_target_y gets box_base_y;
+		end if
+		
+		box_x gets conveyor_start + 12 - conv_width;
+		box_y gets box_target_y;
+		
+		-- draw first partial box
+		if (box_x < 0) and ((box_x + box_w) > 0) then
+			--call _sprites.draw_part_transparent with to _spritedata.box, box_x, box_target_y, 0 - box_x, 0, box_w + box_x, box_h;
+			box_y gets box_base_y;
+		end if
+		
+		until (box_x + box_w) >= SCREEN_WIDTH do		
+			call _sprites.draw_transparent with to _spritedata.box, box_x, box_y;
+			
+			box_x gets box_x + conv_width;
+			box_y gets box_base_y;
+		end until
+		
+		-- last partial box
+		if box_x < SCREEN_WIDTH then
+			--call _sprites.draw_part_transparent with to _spritedata.box, box_x, box_y, 0, 0, SCREEN_WIDTH - box_x, box_h;
+		end if
+		
+		call _util.unbuffer_screen with none;
+	end if
+end function
+
+function animate_conveyor_margins of none begin
+	-- TODO
+	-- there's a 32 pixel wide area on each side
+end function
+
+-- repaints the area of sp1 clipped by sp2
+function repaint_clipping_area of ptr sp1, ptr sp2, i16 sp1_x, i16 sp1_y, i16 sp2_x, i16 sp2_y, boolean transparent begin
+	variable sp1_w is i16 gets (call _sprites.get_width with sp1); -- K
+	variable sp2_w is i16 gets (call _sprites.get_width with sp2); -- L
+	variable sp1_h is i16 gets (call _sprites.get_height with sp1); -- B
+	variable sp2_h is i16 gets (call _sprites.get_height with sp2); -- C
+	
+	if ((sp2_x + sp2_w) > sp1_x) and (sp2_x <= (sp1_x + sp1_w)) and -- x clipping
+	   ((sp2_y + sp2_h) > sp1_y) and (sp2_y <= (sp1_y + sp1_h)) then -- y clipping
+		variable sx is i16;
+		variable sy is i16;
+		variable w is i16;
+		variable h is i16;
+		
+		-- sx = max(sp2_x, sp1_x) - sp1_x
+		if sp2_x < sp1_x then
+			sx gets 0;
+		else
+			sx gets sp2_x - sp1_x;
+		end if
+		
+		-- sy = max(sp2_y, sp1_y) - sp1_y
+		if sp2_y < sp1_y then
+			sy gets 0;
+		else
+			sy gets sp2_y - sp1_y;
+		end if
+		
+		-- w = min(sp2_x + sp2_w, sp1_x + sp1_w) - (sp1_x + sx)
+		if (sp2_x + sp2_w) < (sp1_x + sp1_w) then
+			w gets (sp2_x + sp2_w) - (sp1_x + sx);
+		else
+			w gets sp1_w - sx;
+		end if
+		
+		-- same with y for h
+		if (sp2_y + sp2_h) < (sp1_y + sp1_h) then
+			h gets (sp2_y + sp2_h) - (sp1_y + sy);
+		else
+			h gets sp1_h - sy;
+		end if
+		
+		if transparent then
+			call _sprites.draw_part_transparent with sp1, sp1_x, sp1_y, sx, sy, w, h;
+		else
+			call _sprites.draw_part with sp1, sp1_x, sp1_y, sx, sy, w, h;
+		end if
 	end if
 end function

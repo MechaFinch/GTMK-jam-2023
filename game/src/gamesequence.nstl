@@ -57,6 +57,10 @@ external function _text.a_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 
 
 -- resets the screen
 external function _game.reset_screen of none;
+-- sets the sprite for the person
+external function set_person of ptr sprite_pointer;
+-- sets the sprite for the robot
+external function set_bobot of ptr sprite_pointer;
 
 -- more stuff can be found in the other source files and the copy of the standard library
 -- each library of the standard library has 1 or 2 files, one .nstl and optionally one .asm.
@@ -69,9 +73,12 @@ define COLOR_TRANSPARENT is 0;
 define COLOR_BLACK is 1;
 define COLOR_WHITE is 2;
 
-define COLOR_CHOICE1 is 50;
-define COLOR_CHOICE2 is 51;
-define COLOR_CHOICE3 is 52;
+define COLOR_CHOICE1 is 26;
+define COLOR_CHOICE2 is 27;
+define COLOR_CHOICE3 is 28;
+
+define COLOR_HUMAN_TEXT is 32;
+define COLOR_ROBOT_TEXT is 33;
 
 -- code!
 

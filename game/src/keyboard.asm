@@ -12,6 +12,10 @@
 last_pressed:	db 0
 last_released:	db 0
 
+; note
+; put stuff for getting input for box sorting here
+; tie it to pit.conveyor_anim_enabled
+
 keydown_handler:
 	MOV A, 3
 	MOV [ivt.last_interrupt_source], A

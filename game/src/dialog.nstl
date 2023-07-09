@@ -27,11 +27,11 @@ external function _shapes.fill_rect of i16 x1, i16 y1, i16 w, i16 h, u8 fgc retu
 -- aligned single character
 external function _text.a_char of u8 chr, u8 fgc, u8 bgc, u8 row, u8 col returns none;
 
-define CHOICE_1_IDX is 50;
-define CHOICE_2_IDX is 51;
-define CHOICE_3_IDX is 52;
-define UNSELECTED_COLOR is 0xFF_FF_FF;
-define SELECTED_COLOR is 0xF0_00_F0;
+define CHOICE_1_IDX is 26;
+define CHOICE_2_IDX is 27;
+define CHOICE_3_IDX is 28;
+define UNSELECTED_COLOR is 0x96_42_22;
+define SELECTED_COLOR is 0xf7_96_45;
 
 define FLASH_TIME is 75;
 

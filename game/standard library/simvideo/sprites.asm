@@ -217,10 +217,13 @@ draw_part:
 	PUSH L
 	
 	; compute screen address to LK
-	MOV K, [BP + 14] ; y
+	MOV K, [BP + 14]
+	ADD K, [BP + 18]
 	MULH L:K, SCREEN_WIDTH
-	ADD K, [BP + 12] ; x
+	ADD K, [BP + 12]
 	ADC L, VBUFFER_START / 0x1_0000
+	ADD K, [BP + 16]
+	ICC L
 	
 	; get sprite & sprite params
 	MOVW B:C, [BP + 8]

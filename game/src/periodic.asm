@@ -147,8 +147,6 @@ pit_handler:
 	CALL start_conv_wheel_anim
 .task4:
 
-	CMP byte [conveyor_anim_enabled], 0
-	JE .task5
 	CALL spra.animate_conveyor
 .task5:
 	

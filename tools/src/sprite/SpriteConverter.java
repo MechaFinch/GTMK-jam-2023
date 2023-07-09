@@ -9,8 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -55,7 +57,7 @@ public class SpriteConverter {
             
             int argb = 0xFF_00_00_00 | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
             
-            palette.put(argb, (byte) i);
+            palette.putIfAbsent(argb, (byte) i);
         }
         
         // RO parts
@@ -96,7 +98,7 @@ public class SpriteConverter {
         }
         
         // write
-        RelocatableObject finalObject = new RelocatableObject(Endianness.LITTLE, spriteFolder.getFileName().toString(), 2, incomingReferences, outgoingReferences, incomingReferenceWidths, outgoingReferenceWidths, objectCode, false);
+        RelocatableObject finalObject = new RelocatableObject(Endianness.LITTLE, spriteFolder.getFileName().toString(), 4, incomingReferences, outgoingReferences, incomingReferenceWidths, outgoingReferenceWidths, objectCode, false);
         
         try(FileOutputStream fos = new FileOutputStream(outputFile.toFile())) {
             fos.write(finalObject.asObjectFile());
@@ -121,6 +123,8 @@ public class SpriteConverter {
         data.add((byte)(h & 0xFF));
         data.add((byte)((h >> 8) & 0xFF));
         
+        Set<Integer> badColors = new HashSet<>();
+        
         for(int y = 0; y < h; y++) {
             for(int x = 0; x < w; x++) {
                 if(x >= ow) {
@@ -142,7 +146,11 @@ public class SpriteConverter {
                         Byte b = palette.get(argb);
                         
                         if(b == null) {
-                            System.out.println("Color not in palette: " + Integer.toHexString(argb));
+                            if(!badColors.contains(argb)) {
+                                System.out.println("Color not in palette: " + Integer.toHexString(argb));
+                                badColors.add(argb);
+                            }
+                            
                             data.add((byte) 0);
                         } else {
                             data.add(b);
@@ -151,6 +159,8 @@ public class SpriteConverter {
                 }
             }
         }
+        
+        if(data.size() < (w * h) + 4) throw new IllegalStateException("Missing data: expected " + ((w * h) + 4) + " got " + data.size());
         
         String name = p.getFileName().toString();
         name = name.substring(0, name.lastIndexOf('.'));
