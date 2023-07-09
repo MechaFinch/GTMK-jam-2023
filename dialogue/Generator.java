@@ -76,7 +76,7 @@ public class Generator {
                 int choiceVerticalPos = defaultVerticalPos;
                 for(int l = 0; l < choicesCount; l++) {
                     code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l, choiceVerticalPos);
-                    int newlines = Math.max(1, lineBreakCounts[i + l]);
+                    int newlines = Math.max(1, lineBreakCounts[i + l] - 1);
                     choiceVerticalPos += (newlines * lineHeight);
                 }
 
