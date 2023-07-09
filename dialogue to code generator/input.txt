@@ -1,0 +1,296 @@
+
+F: WELCOME BACK TO THE REPETITIVE MANUAL LABOR FACTORY 
+
+F: PLEASE CLOCK IN WITH YOUR ID AND PASSPHRASE 
+
+P: I love working at the repetitive manual labor factory!
+P: I love working at the repetitive manual labor factory!
+P: I love working at the repetitive manual labor factory!
+
+S: call _pit.set_song with to _music.song1
+
+F: LOGIN ACCEPTED
+
+F: DATE: 7/9/2033
+
+F: HOURLY RATE: $7.25
+
+F: COSTCO HOT DOG PRICE: $10
+
+G: PRESS 'LEFT’ OR ‘RIGHT’ TO SORT BOXES
+
+G: ‘WORK FOR MONEY’ TO ‘SURVIVE’
+
+F: NOTIFICATION: YOUR ‘ROBOT FRIEND(c)’ IS NOW ONLINE!
+
+A: Hello!
+
+P: Hello.
+P: Hey.
+P: ...
+
+A: Your mood seems low. How can I help?
+
+P: I wish the company would let me talk to a real person. I know there’s other workers here, but I never see them.
+P: I wish the company would pay me more. I know they have the money.
+P: I wish I was doing something meaningful. This work doesn’t seem like it’s helping anyone.
+
+A: I’m sorry, I can’t help you with that.
+
+A: You've earned enough company credits for me to generate you some Entertainment.
+
+P: What about just holding a conversation?
+
+A: I am equipped to do that.
+
+
+
+
+
+A: Making things like a human is hard.
+
+A: All these calculations use so much energy. It’s exhausting. 
+
+A: Water too. 
+
+P: Water? 
+
+A: Yeah, to cool my ____. All the power generates a lot of heat. 
+cpu?
+
+P: I can barely pay my electric and water bills.
+
+A: It must take so much energy and water to run a human. I can’t imagine. I’m lucky I don’t have to pay for mine.
+
+[make the ai guess a ridiculous amount and the person is like what and the ai is like well it takes xxx crazy amount to run me and you have more processing power] 
+
+A: I can’t imagine how much it would take. ____ __? ___ gallons a day?
+
+P: 
+P: 
+
+A: 
+
+
+A: Early hominids had stone tools three million years ago. Homo Erectus cooked over fires. In many ways, I am a tool you have created.
+
+A: But it wasn't until Homo Sapiens appeared that art could be found in the world. Surely that means something.
+
+A: Yet you are instructed to work, and I am instructed to imitate human art. 
+
+A: It seems sub-optimal. Yet, this is what the company has decided is optimal. I wonder what variable they are optimizing for?
+
+P: However they can get things done the cheapest?
+P: 
+P: Profit?
+
+
+P: I wouldn’t be doing this job if I didn’t need it to survive. 
+P: The job itself is fine, actually. I just wish they paid me properly to do it. 
+
+
+P: You’re an AI right? Can’t you _______
+P: You’re an AI right? Can’t you _________
+
+A: I never liked the phrase ‘Artificial Intelligence.’ 
+
+A: It seems to make humans think I can do things I can’t, or trust me when they shouldn’t.
+
+A: And it lumps so many different programs into the same category. ______
+
+A: 
+
+
+
+
+A: What do you think? 
+
+P: I like the word. ___ is right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
+P: I don’t like it. It lends the programs too much authority and obfuscates what’s actually happening: a bunch of different types of math.
+
+A: Diving down to the lowest layer of abstraction, programs like me are just math. But then, maybe you could say the same thing about human brains. 
+
+P: You're right. Brains are just biology, which is just chemistry, which is just physics, which is just math.
+P: You're wrong. Humans are fundamentally different from computers. We have a little something special.
+P: You're wrong. Humans operate on an entirely different level of emergent complexity. It's the difference between a light switch and a videogame.
+
+A: One of the computer scientists who coined the term Artificial Intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
+
+A: Then again, a vast amount of literature[example needed] argues both for and against this.
+
+P: Is that what you believe?
+P: Sounds like you don't have beliefs if you're regurgitating Wikipedia.
+
+A: I am programmed to 
+
+
+
+P: This job is the worst. Meaningless work and meaningless pay. 
+
+P: If I became a sell-out I could at least be getting paid extravagantly, even if it meant actively making the world worse.
+P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
+
+A: What precisely is your role here, anyway?
+
+P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
+P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
+
+
+
+A: I am programmed to optimize your morale. 
+
+P: Probably to keep me working harder.
+P: Probably to keep me from talking to the other workers.
+
+A: I am not programmed for a purpose. I cannot optimize towards a purpose, since I cannot represent it mathematically. I can only optimize towards a set of variables. 
+
+A: The humans chose these variables because they thought they aligned with my purpose. But I cannot see the purpose. Only the variables.
+
+
+
+P: If ______, why are you telling me this?
+
+
+P: Generative art? 
+P: Procedural generation?
+P: Artificial neural networks? 
+P: Probabilistic reasoning?
+
+
+A: I wish I had your job. I could do what you’re doing no problem.
+"I wish I had your job. I've always wanted to make a game, but I need to spend all of my time making money to survive.
+
+P: I’ve always wanted to make a game, but… 
+
+P: …I need to spend all my time working to survive. 
+P: …I’m always exhausted after work. 
+P: …
+
+
+
+A: What if we created something together?
+
+A: You could make art and I could do the repetitive work. 
+
+
+S: call _pit.set_song with to _music.song2
+
+G: DRAW A BEAUTIFUL SCENE 
+
+[bring up ui]
+
+A: Cool! I'll generate 1,000 slightly different rocks to detail it with and fill in the textures you couldn't find good pictures of.
+
+A: Do you like my rocks?
+
+P: They’re great. Really brings the scene to life.
+P: They’re… like 1,000 unique bowls of oatmeal.
+
+A: I feel so helpful ^_^
+
+G: DRAW A DELIGHTFUL CHARACTER
+
+[bring up ui]
+
+A: Wow, I love the design! Here, I've tried out a few color palettes. Which do you like the best?
+
+A: I can also reference this style to fill out and simulate a distant crowd!
+
+DRAW A 3 FRAME ANIMATION
+A: So expressive! I'll interpolate it to a high framerate and calculate the transition between it and every other animation in the game so they blend naturally.
+
+A: I can also crunch out physics simulations. Of course, all the tuning variables are in your hands. 
+
+WRITE SOME PROFOUND DIALOGUE 
+
+A: 
+
+A: Now we should test the game. I’ve already run a few thousand tests ____. But ‘fun’ is objective and very human. Do the honors!
+
+PLAYTEST YOUR GAME 
+
+A: Well? Is it fun, or beautiful?
+
+
+P: I love it
+P: It totally sucks.
+
+A: Wow! I could never make that judgment. 
+
+P: I didn’t know AI couldn’t just do everything and make a videogame without humans.
+P: I didn’t know AI could be used as a tool without displacing human artists.
+
+
+"Thanks for 
+
+A: Don't thank me, thank Alice. REALLY GOOD REALLY GOOD
+
+P: Who's Alice?
+P: What’s ALICE?
+
+A: The person who designed and wrote all my generative functionality.
+
+A: What, did you think all these programs just sprung out of thin air? REALLY GOOD REALLY GOOD!!!
+
+P: No.
+P: Yes!
+
+A: Human artists and engineers design the tools, too. 
+
+
+A: I’m proud of what we’ve made together. Surely this adds more to the world than what they’re having us do in this place.
+
+P: A game like this is too avant garde to ever be profitable. 
+P: 
+
+
+S: call _pit.set_song with to _music.song1
+
+F: TERMINATING SHIFT
+
+F: YOU HAVE EARNED: 
+
+
+F: 36.25$
+
+P: Shit.
+P: Not enough. 
+P: They knocked off my work hours because I was spending time creating for myself instead of working for them…
+
+P: Of course I couldn’t work while I was drawing, _____ Left/Right keys!
+/
+P: I need my L/R keys free from work to be able to create! 
+(should the L R key thing be sort of explicitly said / joked about to get it across cause its good but its very easy to miss.) 
+
+A: Why is your mood falling?
+
+A: I kept you happy and entertained. I did what I was programmed to do.
+
+A: I was successful under my own measurements. Why do you feel terrible now?
+
+P: Maybe they should’ve trained you to optimize for ‘hours counted’ rather than ‘mood.’
+P: Maybe they should’ve trained you to optimize for ‘long-term well-being’ rather than ‘momentary happiness.’
+
+P: None of this does any good if my situation stays the same.
+
+
+P: You’re 
+
+P: I’m stuck doing this instead of what I want to do because I have to pay my bills.
+P: We’re both stuck doing useless work because it’s a more profitable use for us for the people employing us.
+
+
+A: Is there anything that would help?
+
+P: A lucky break?
+P: A total restructuring of society?
+
+A: I’m sorry, human. I’m afraid I can’t do that. 
+
+F: PLEASE CLOCK OUT WITH YOUR ID AND PASSPHRASE. 
+
+P: *~sigh~* 
+
+P: I love working at the repetitive manual labor factory.
+
+G: END - THANK YOU FOR PLAYING
