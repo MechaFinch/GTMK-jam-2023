@@ -310,20 +310,9 @@ P: Maybe they should've had you optimize for 'long-term well-being' rather than 
 
 P: We can't create things this way while we're both in this situation. 
 
-
-
-
-P: You're 
-
 P: I'm stuck doing this instead of what I want to do because I have to pay my bills.
-P: You're here instead of crunching numbers on important problems because it ____
+P: You're here instead of crunching numbers on important problems because it generates profit.
 P: We're both stuck doing useless work because it's a more profitable use for us for the people employing us.
-
-
-P: It won't happen. Why hire a human when they could generate oatmeal on the cheap?
-P: It won't happen. They don't pay anyone to do that, only... whatever this is.
-
-
 
 P: We're stuck where each other should be because it makes somebody more money for it to be this way. 
 
@@ -344,4 +333,4 @@ P: *~sigh~*
 
 P: I love working at the repetitive manual labor factory.
 
-G: END - THANK YOU FOR PLAYING !
+G: END - THANK YOU FOR PLAYING!!
