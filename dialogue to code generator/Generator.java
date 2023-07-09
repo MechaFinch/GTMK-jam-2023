@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,12 @@ public class Generator {
     static final String [] choiceColors = {"COLOR_CHOICE1", "COLOR_CHOICE2", "COLOR_CHOICE3"};
     static final String color2 = "COLOR_TRANSPARENT";
 
+    static final int lineHeight = 10;
+    static final int defaultVerticalPos = 22;
+
     static final String clearCode = "\ncall _dialog.reset_box with none;";
 
     public static void main(String [] args) throws IOException {
-
 
 
         String [] lines = readLines("input.txt");
@@ -68,7 +71,7 @@ public class Generator {
                 String code = "";
                 
                 for(int l = 0; l < choicesCount; l++) {
-                    code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l);
+                    code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l, defaultVerticalPos + (l * lineHeight));
                 }
 
                 code = code + "\ncall _dialog.wait_dialog with " + choicesCount + ", " + choicesLines[0] + ", " + choicesLines[1] + ", " + choicesLines[2] + ";";
@@ -104,23 +107,35 @@ public class Generator {
             }
         }
 
-        //print to output.txt 
-        FileWriter writer = new FileWriter("output.txt"); 
-        for(String str: outputStrings) {
-            writer.write(str + System.lineSeparator());
-        }
+        //clear what was in output.txt 
+        PrintWriter writer = new PrintWriter("output.txt");
+        writer.print("");
         writer.close();
+
+        //print to output.txt 
+        FileWriter writer2 = new FileWriter("output.txt"); 
+        for(String str: outputStrings) {
+            writer2.write(str + System.lineSeparator());
+        }
+        writer2.close();
+
+    }
+
+    //overload for specifying line pos for choices 
+    public static String generateCode(String dialogue, String color, int numLines, int id, int verticalPos) {
+
+        String varname = "str" + id;
+        String str = "";
+        str += "\nconstant " + varname + " is string gets \"" + dialogue + "\";";
+        str += "\ncall _text.a_string with to " + varname + ", sizeof " + varname + ", " + color + ", COLOR_TRANSPARENT, " + verticalPos + ", 2;";
+        return str;
 
     }
 
     //id is unique for variable name 
     public static String generateCode(String dialogue, String color, int numLines, int id) {
 
-        String varname = "str" + id;
-        String str = "";
-        str += "\nconstant " + varname + " is string gets \"" + dialogue + "\";";
-        str += "\ncall _text.a_string with to " + varname + ", sizeof " + varname + ", " + color + ", COLOR_TRANSPARENT, 22, 2;";
-        return str;
+        return generateCode(dialogue, color, numLines, id, defaultVerticalPos);
 
     }
 
