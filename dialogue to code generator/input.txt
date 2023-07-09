@@ -39,11 +39,19 @@ P: I wish I was doing something meaningful. None of this seems like it's helping
 
 A: I'm sorry, I can't help you with that.
 
-A: You've earned enough company credits for me to generate some Entertainment for you, though!
+A: Though, you have earned enough company credits for me to generate some Entertainment for you.
 
 P: What about holding a conversation?
 
 A: I am equipped to do that.
+
+A: What do you want to converse about?
+
+
+
+P: Honestly, I just want to complain.
+
+A: Okay.
 
 
 
@@ -75,7 +83,7 @@ A: It seems to make humans think I can do things I can't, or trust me when they 
 
 A: And it lumps so many different programs into the same category.
 
-A: 
+A: ____
 
 A: So they used the phrase 'Artificial Intelligence,' to express what they were really trying to accomplish. 
 
@@ -113,9 +121,6 @@ A: The humans chose these variables because they thought they aligned with my pu
 P: ____
 P: ____
 P: ____
-
-
-
 
 
 
@@ -172,19 +177,18 @@ P: I've always wanted to make a game, but I spend all of my time...
 P: ...working.
 P: ...exhausted after work.
 
-A: What if we created something together?
+A: What if we created a game together?
 
 A: You could be the artist and I could do the repetitive work. 
 
 
-
 S: call _pit.set_song with to _music.song2;
-
-S: variable sprite_scene is ptr gets (call _etch.create_image with 30, 30);
 
 S: call _pit.disable_conveyor_anim with none;
 
 G: DRAW A BEAUTIFUL SCENE 
+
+S: variable sprite_scene is ptr gets (call _etch.create_image with 30, 30);
 
 A: Cool! I'll generate 1,000 slightly different rocks to detail it with, and fill in the textures you couldn't find good pictures of.
 
@@ -195,10 +199,11 @@ P: They're… like 1,000 unique bowls of oatmeal.
 
 A: I'm so helpful ^_^
 
-
-S: variable sprite_character is ptr gets (call _etch.create_image with 20, 20);
+S: call _game.reset_screen with none;
 
 G: ANIMATE A DELIGHTFUL CHARACTER
+
+S: variable sprite_character is ptr gets (call _etch.create_image with 20, 20);
 
 A: I love the design! The animation is so expressive. 
 
@@ -208,10 +213,11 @@ A: I can also crunch out physics simulations, and populate crowds based on this 
 
 A: Of course, all of the tuning options are in your hands.
 
-
-S: variable sprite_dialogue is ptr gets (call _etch.create_image with 30, 15);
+S: call _game.reset_screen with none;
 
 G: WRITE SOME PROFOUND DIALOGUE 
+
+S: variable sprite_dialogue is ptr gets (call _etch.create_image with 30, 15);
 
 A: Incredible- I've been trained on millions of words, and I've never seen this particular combination before.
 
@@ -222,11 +228,11 @@ A: Now we should test the game.
 A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
 
 
+G: PLAYTEST YOUR GAME
+
 S: call _sprites.draw with sprite_scene, (320 / 2) - 16, 16;
 S: call _sprites.draw with sprite_character, (320 / 2) - 16, 16;
 S: call _sprites.draw with sprite_dialogue, (320 / 2) - 16, 16;
-
-G: PLAYTEST YOUR GAME
 
 A: Well? Is it fun? Is it beautiful?
 
