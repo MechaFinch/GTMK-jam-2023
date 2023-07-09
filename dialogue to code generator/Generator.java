@@ -75,8 +75,10 @@ public class Generator {
 
                 String code = "";
                 
+                int choiceVerticalPos = defaultVerticalPos;
                 for(int l = 0; l < choicesCount; l++) {
-                    code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l, defaultVerticalPos + (l * lineHeight));
+                    code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l, choiceVerticalPos);
+                    choiceVerticalPos += (lineBreakCounts[i + l] * lineHeight);
                 }
 
                 code = code + "\ncall _dialog.wait_choice with " + choicesCount + ", " + choicesLines[0] + ", " + choicesLines[1] + ", " + choicesLines[2] + ";";
