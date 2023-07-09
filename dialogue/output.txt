@@ -91,9 +91,9 @@ call _dialog.reset_box with none;
 constant str29 is string gets "...";
 call _text.a_string with to str29, sizeof str29, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str30 is string gets "Hey. ";
-call _text.a_string with to str30, sizeof str30, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str30, sizeof str30, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 constant str31 is string gets "Begone, corporate entity.";
-call _text.a_string with to str31, sizeof str31, COLOR_CHOICE3, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str31, sizeof str31, COLOR_CHOICE3, COLOR_TRANSPARENT, 25, 1;
 call _dialog.wait_choice with 3, 0, 0, 0;
 
 call _dialog.reset_box with none;
@@ -171,7 +171,7 @@ call _dialog.reset_box with none;
 constant str55 is string gets "...I spend all of my time working.";
 call _text.a_string with to str55, sizeof str55, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str56 is string gets "...I spend all of my time exhausted\nafter work.";
-call _text.a_string with to str56, sizeof str56, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str56, sizeof str56, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 1, 0;
 
 call _dialog.reset_box with none;
@@ -289,7 +289,7 @@ call _dialog.reset_box with none;
 constant str92 is string gets "Is that what you believe?";
 call _text.a_string with to str92, sizeof str92, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str93 is string gets "Sounds like you don't have beliefs\nif you're regurgitating\nWikipedia.";
-call _text.a_string with to str93, sizeof str93, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str93, sizeof str93, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 1, 0;
 
 call _dialog.reset_box with none;
@@ -482,7 +482,7 @@ call _dialog.reset_box with none;
 constant str154 is string gets "About half. Of a gallon. ";
 call _text.a_string with to str154, sizeof str154, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str155 is string gets "Let's go with 1,000.";
-call _text.a_string with to str155, sizeof str155, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str155, sizeof str155, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
@@ -504,7 +504,7 @@ call _dialog.reset_box with none;
 constant str161 is string gets "They don't have to pay you?";
 call _text.a_string with to str161, sizeof str161, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str162 is string gets "You can work 24 hours a day, 7 days\na week?";
-call _text.a_string with to str162, sizeof str162, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str162, sizeof str162, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 1, 0;
 
 call _dialog.reset_box with none;
@@ -546,7 +546,7 @@ call _dialog.reset_box with none;
 constant str174 is string gets "Right now?";
 call _text.a_string with to str174, sizeof str174, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str175 is string gets "What about work?";
-call _text.a_string with to str175, sizeof str175, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str175, sizeof str175, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
@@ -705,7 +705,7 @@ call _dialog.reset_box with none;
 constant str236 is string gets "It's sublime.";
 call _text.a_string with to str236, sizeof str236, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str237 is string gets "It totally sucks.";
-call _text.a_string with to str237, sizeof str237, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str237, sizeof str237, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
@@ -755,7 +755,7 @@ call _dialog.reset_box with none;
 constant str252 is string gets "Who's Alice?";
 call _text.a_string with to str252, sizeof str252, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str253 is string gets "What's ALICE?";
-call _text.a_string with to str253, sizeof str253, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str253, sizeof str253, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
@@ -777,7 +777,7 @@ call _dialog.reset_box with none;
 constant str259 is string gets "No.";
 call _text.a_string with to str259, sizeof str259, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 constant str260 is string gets "Yes!";
-call _text.a_string with to str260, sizeof str260, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+call _text.a_string with to str260, sizeof str260, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
@@ -811,28 +811,35 @@ call _dialog.reset_box with none;
 
 constant str270 is string gets "Someone should probably look into\nthat. ";
 call _text.a_string with to str270, sizeof str270, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str271 is string gets "I don't want to know.";
+constant str271 is string gets "I don't want to know. I don't want\nto think about it.";
 call _text.a_string with to str271, sizeof str271, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
-call _dialog.wait_choice with 2, 1, 0, 0;
+call _dialog.wait_choice with 2, 1, 1, 0;
 
 call _dialog.reset_box with none;
 
-constant str273 is string gets "___ ";
+constant str273 is string gets "Probably.";
 call _text.a_string with to str273, sizeof str273, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str276 is string gets "I'm proud of what we've made\ntogether. Surely this adds more to the\nworld than what they're having\nus do in this place.";
-call _text.a_string with to str276, sizeof str276, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str275 is string gets "Barring that-";
+call _text.a_string with to str275, sizeof str275, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str278 is string gets "I wish they would let us work\ntogether in this way more often. I\nwonder why they don't.";
-call _text.a_string with to str278, sizeof str278, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str277 is string gets "I'm proud of what we've made\ntogether. Surely this adds more to the\nworld than what they're having\nus do in this place.";
+call _text.a_string with to str277, sizeof str277, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+
+call _dialog.wait_dialog with none;
+
+call _dialog.reset_box with none;
+
+constant str279 is string gets "I wish they would let us work\ntogether in this way more often. I\nwonder why they don't.";
+call _text.a_string with to str279, sizeof str279, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
@@ -840,181 +847,175 @@ call _pit.set_song with to _music.song1;
 
 call _dialog.reset_box with none;
 
-constant str282 is string gets "____";
-call _text.a_string with to str282, sizeof str282, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str283 is string gets "_____ ";
-call _text.a_string with to str283, sizeof str283, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
-constant str284 is string gets "A game like this is too avant-garde\nto ever be profitable.";
-call _text.a_string with to str284, sizeof str284, COLOR_CHOICE3, COLOR_TRANSPARENT, 21, 1;
-call _dialog.wait_choice with 3, 0, 0, 1;
+constant str283 is string gets "Why hire a human when they could\ngenerate oatmeal on the cheap?";
+call _text.a_string with to str283, sizeof str283, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str284 is string gets "Whatever work we're doing here must\nmake them more money than us\nmaking anything meaningful.";
+call _text.a_string with to str284, sizeof str284, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
+constant str285 is string gets "A game like this is too avant-garde\nto ever be profitable.";
+call _text.a_string with to str285, sizeof str285, COLOR_CHOICE3, COLOR_TRANSPARENT, 27, 1;
+call _dialog.wait_choice with 3, 1, 2, 1;
+
+call _dialog.reset_box with none;
+
+constant str287 is string gets "Maybe-";
+call _text.a_string with to str287, sizeof str287, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+
+call _dialog.wait_dialog with none;
 
 call _game.reset_screen with none;
 
 call _dialog.reset_box with none;
 
-constant str288 is string gets "TERMINATING SHIFT";
-call _text.a_string with to str288, sizeof str288, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+constant str291 is string gets "TERMINATING SHIFT";
+call _text.a_string with to str291, sizeof str291, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str290 is string gets "YOU HAVE EARNED: ";
-call _text.a_string with to str290, sizeof str290, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+constant str293 is string gets "YOU HAVE EARNED: ";
+call _text.a_string with to str293, sizeof str293, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str292 is string gets "36.25$";
-call _text.a_string with to str292, sizeof str292, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+constant str295 is string gets "36.25$";
+call _text.a_string with to str295, sizeof str295, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str294 is string gets "Shit.";
-call _text.a_string with to str294, sizeof str294, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str295 is string gets "Not nearly enough. ";
-call _text.a_string with to str295, sizeof str295, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
-constant str296 is string gets "They knocked off my work hours. I\ncouldn't do this and work for\nthem at the same time.";
-call _text.a_string with to str296, sizeof str296, COLOR_CHOICE3, COLOR_TRANSPARENT, 21, 1;
+constant str297 is string gets "Shit.";
+call _text.a_string with to str297, sizeof str297, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str298 is string gets "Not nearly enough. ";
+call _text.a_string with to str298, sizeof str298, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
+constant str299 is string gets "They knocked off my work hours. I\ncouldn't do this and work for\nthem at the same time.";
+call _text.a_string with to str299, sizeof str299, COLOR_CHOICE3, COLOR_TRANSPARENT, 25, 1;
 call _dialog.wait_choice with 3, 0, 0, 2;
 
 call _dialog.reset_box with none;
 
-constant str298 is string gets "Your biometrics indicate your mood\nis falling.";
-call _text.a_string with to str298, sizeof str298, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str301 is string gets "Your biometrics indicate your mood\nis falling.";
+call _text.a_string with to str301, sizeof str301, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str300 is string gets "I kept you happy and entertained. I\ndid what I was programmed to\ndo.";
-call _text.a_string with to str300, sizeof str300, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str303 is string gets "I kept you happy and entertained. I\ndid what I was programmed to\ndo.";
+call _text.a_string with to str303, sizeof str303, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str302 is string gets "I was successful under my own\nmeasurements. Why do you feel\nterrible now?";
-call _text.a_string with to str302, sizeof str302, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str305 is string gets "I was successful under my own\nmeasurements. Why do you feel\nterrible now?";
+call _text.a_string with to str305, sizeof str305, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str304 is string gets "Maybe they should've trained you to\noptimize for 'hours counted'\nrather than 'mood.'";
-call _text.a_string with to str304, sizeof str304, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str305 is string gets "Maybe they should've trained you to\noptimize for 'long-term\nwell-being' rather than 'momentary\nhappiness.'";
-call _text.a_string with to str305, sizeof str305, COLOR_CHOICE2, COLOR_TRANSPARENT, 25, 1;
+constant str307 is string gets "Maybe they should've had you\noptimize for 'hours counted' rather\nthan 'mood.'";
+call _text.a_string with to str307, sizeof str307, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str308 is string gets "Maybe they should've had you\noptimize for 'long-term well-being'\nrather than 'momentary happiness.'";
+call _text.a_string with to str308, sizeof str308, COLOR_CHOICE2, COLOR_TRANSPARENT, 25, 1;
 call _dialog.wait_choice with 2, 2, 2, 0;
 
 call _dialog.reset_box with none;
 
-constant str307 is string gets "None of this does any good if my\nsituation stays the same.";
-call _text.a_string with to str307, sizeof str307, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str314 is string gets "None of this does any good if my\nsituation stays the same.";
+call _text.a_string with to str314, sizeof str314, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 call _dialog.wait_choice with 1, 1, 0, 0;
 
 call _dialog.reset_box with none;
 
-constant str310 is string gets "You're ";
-call _text.a_string with to str310, sizeof str310, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str317 is string gets "You're ";
+call _text.a_string with to str317, sizeof str317, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 call _dialog.wait_choice with 1, 0, 0, 0;
 
 call _dialog.reset_box with none;
 
-constant str312 is string gets "I'm stuck doing this instead of\nwhat I want to do because I have to\npay my bills.";
-call _text.a_string with to str312, sizeof str312, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str313 is string gets "We're both stuck doing useless work\nbecause it's a more profitable\nuse for us for the people\nemploying us.";
-call _text.a_string with to str313, sizeof str313, COLOR_CHOICE2, COLOR_TRANSPARENT, 25, 1;
-call _dialog.wait_choice with 2, 2, 2, 0;
-
-call _dialog.reset_box with none;
-
-constant str315 is string gets "____";
-call _text.a_string with to str315, sizeof str315, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-call _dialog.wait_choice with 1, 0, 0, 0;
-
-call _dialog.reset_box with none;
-
-constant str317 is string gets "____";
-call _text.a_string with to str317, sizeof str317, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
-
-call _dialog.wait_dialog with none;
-
-call _dialog.reset_box with none;
-
-constant str319 is string gets "It won't happen. Why hire a human\nwhen they could generate oatmeal\non the cheap?";
+constant str319 is string gets "I'm stuck doing this instead of\nwhat I want to do because I have to\npay my bills.";
 call _text.a_string with to str319, sizeof str319, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str320 is string gets "It won't happen. They don't pay\nanyone to do that, only... whatever\nthis is.";
+constant str320 is string gets "We're both stuck doing useless work\nbecause it's a more profitable\nuse for us for the people\nemploying us.";
 call _text.a_string with to str320, sizeof str320, COLOR_CHOICE2, COLOR_TRANSPARENT, 25, 1;
 call _dialog.wait_choice with 2, 2, 2, 0;
 
 call _dialog.reset_box with none;
 
-constant str322 is string gets "We're stuck where each other should\nbe because it makes somebody\nmore money for it to be this way. ";
-call _text.a_string with to str322, sizeof str322, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str323 is string gets "It won't happen. Why hire a human\nwhen they could generate oatmeal\non the cheap?";
+call _text.a_string with to str323, sizeof str323, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str324 is string gets "It won't happen. They don't pay\nanyone to do that, only... whatever\nthis is.";
+call _text.a_string with to str324, sizeof str324, COLOR_CHOICE2, COLOR_TRANSPARENT, 25, 1;
+call _dialog.wait_choice with 2, 2, 2, 0;
+
+call _dialog.reset_box with none;
+
+constant str326 is string gets "We're stuck where each other should\nbe because it makes somebody\nmore money for it to be this way. ";
+call _text.a_string with to str326, sizeof str326, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 call _dialog.wait_choice with 1, 2, 0, 0;
 
 call _dialog.reset_box with none;
 
-constant str324 is string gets "Is there anything that would help?";
-call _text.a_string with to str324, sizeof str324, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str330 is string gets "Is there anything that would help?";
+call _text.a_string with to str330, sizeof str330, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str326 is string gets "A lucky break?";
-call _text.a_string with to str326, sizeof str326, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
-constant str327 is string gets "A total restructuring of society?";
-call _text.a_string with to str327, sizeof str327, COLOR_CHOICE2, COLOR_TRANSPARENT, 21, 1;
+constant str332 is string gets "A lucky break?";
+call _text.a_string with to str332, sizeof str332, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str333 is string gets "A total restructuring of society?";
+call _text.a_string with to str333, sizeof str333, COLOR_CHOICE2, COLOR_TRANSPARENT, 23, 1;
 call _dialog.wait_choice with 2, 0, 0, 0;
 
 call _dialog.reset_box with none;
 
-constant str329 is string gets "I'm sorry, human. I'm afraid I\ncan't do that. ";
-call _text.a_string with to str329, sizeof str329, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str335 is string gets "I'm sorry, human. I'm afraid I\ncan't do that. ";
+call _text.a_string with to str335, sizeof str335, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str331 is string gets "I'll see you here again same time\ntomorrow.";
-call _text.a_string with to str331, sizeof str331, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str337 is string gets "I'll see you here again same time\ntomorrow.";
+call _text.a_string with to str337, sizeof str337, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str333 is string gets "And the day after that.";
-call _text.a_string with to str333, sizeof str333, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
+constant str339 is string gets "And the day after that.";
+call _text.a_string with to str339, sizeof str339, COLOR_ROBOT_TEXT, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str335 is string gets "PLEASE CLOCK OUT WITH YOUR ID AND\nPASSPHRASE. ";
-call _text.a_string with to str335, sizeof str335, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+constant str341 is string gets "PLEASE CLOCK OUT WITH YOUR ID AND\nPASSPHRASE. ";
+call _text.a_string with to str341, sizeof str341, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;
 
 call _dialog.reset_box with none;
 
-constant str337 is string gets "*~sigh~* ";
-call _text.a_string with to str337, sizeof str337, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str343 is string gets "*~sigh~* ";
+call _text.a_string with to str343, sizeof str343, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 call _dialog.wait_choice with 1, 0, 0, 0;
 
 call _dialog.reset_box with none;
 
-constant str339 is string gets "I love working at the repetitive\nmanual labor factory.";
-call _text.a_string with to str339, sizeof str339, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
+constant str345 is string gets "I love working at the repetitive\nmanual labor factory.";
+call _text.a_string with to str345, sizeof str345, COLOR_CHOICE1, COLOR_TRANSPARENT, 21, 1;
 call _dialog.wait_choice with 1, 1, 0, 0;
 
 call _dialog.reset_box with none;
 
-constant str341 is string gets "END - THANK YOU FOR PLAYING !";
-call _text.a_string with to str341, sizeof str341, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
+constant str347 is string gets "END - THANK YOU FOR PLAYING !";
+call _text.a_string with to str347, sizeof str347, COLOR_WHITE, COLOR_TRANSPARENT, 21, 1;
 
 call _dialog.wait_dialog with none;

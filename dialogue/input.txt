@@ -269,10 +269,11 @@ P: If you're imitating human art, where does the art you're imitating come from?
 A: I don't know. 
 
 P: Someone should probably look into that. 
-P: I don't want to know.
+P: I don't want to know. I don't want to think about it.
 
-A: ___ 
+A: Probably.
 
+A: Barring that-
 
 A: I'm proud of what we've made together. Surely this adds more to the world than what they're having us do in this place.
 
@@ -280,9 +281,11 @@ A: I wish they would let us work together in this way more often. I wonder why t
 
 S: call _pit.set_song with to _music.song1;
 
-P: ____
-P: _____ 
+P: Why hire a human when they could generate oatmeal on the cheap?
+P: Whatever work we're doing here must make them more money than us making anything meaningful.
 P: A game like this is too avant-garde to ever be profitable.
+
+A: Maybe-
 
 S: call _game.reset_screen with none;
 
@@ -302,8 +305,12 @@ A: I kept you happy and entertained. I did what I was programmed to do.
 
 A: I was successful under my own measurements. Why do you feel terrible now?
 
-P: Maybe they should've trained you to optimize for 'hours counted' rather than 'mood.'
-P: Maybe they should've trained you to optimize for 'long-term well-being' rather than 'momentary happiness.'
+P: Maybe they should've had you optimize for 'hours counted' rather than 'mood.'
+P: Maybe they should've had you optimize for 'long-term well-being' rather than 'momentary happiness.'
+
+
+
+
 
 P: None of this does any good if my situation stays the same.
 
@@ -313,14 +320,13 @@ P: You're
 P: I'm stuck doing this instead of what I want to do because I have to pay my bills.
 P: We're both stuck doing useless work because it's a more profitable use for us for the people employing us.
 
-P: ____
-
-A: ____
 
 P: It won't happen. Why hire a human when they could generate oatmeal on the cheap?
 P: It won't happen. They don't pay anyone to do that, only... whatever this is.
 
 P: We're stuck where each other should be because it makes somebody more money for it to be this way. 
+
+
 
 A: Is there anything that would help?
 
