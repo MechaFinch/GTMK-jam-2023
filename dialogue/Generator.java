@@ -27,8 +27,6 @@ public class Generator {
     
 
     public static void main(String [] args) throws IOException {
-
-
         String [] lines = readLines("input.txt");
 
         int [] lineBreakCounts = new int[lines.length];
@@ -161,7 +159,24 @@ public class Generator {
         if(str.length() > 0 && str.charAt(0) == 'S') {
             return str;
         }
+		
+		int strIndex = 0;
+		int lineIndex = 0;
+		
+		while(strIndex < str.length()) {
+		    if(lineIndex >= charsPerLine) {
+		        str = str.substring(0, str.lastIndexOf(' ', strIndex)) + "\\n" + str.substring(str.lastIndexOf(' ', strIndex) + 1);
+		        
+		        lineIndex = 5;
+		        //strIndex++;
+		        //strIndex--;
+		    }
+		    
+			lineIndex++;
+			strIndex++;
+		}
 
+		/*
         int counter = 0; 
         while(counter * charsPerLine < str.length()) {
 
@@ -171,6 +186,7 @@ public class Generator {
                 str = str.substring(0, pos) + "\\n" + str.substring(pos);
             }
         }
+        */
 
         str.replaceAll("\"", "\\\"");
         str.replaceAll("\'", "\\\'");

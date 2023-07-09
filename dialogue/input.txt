@@ -1,0 +1,342 @@
+
+F: WELCOME BACK TO THE REPETITIVE MANUAL LABOR FACTORY 
+
+F: PLEASE CLOCK IN WITH YOUR ID AND PASSPHRASE 
+
+P: I love working at the repetitive manual labor factory!
+P: I love working at the repetitive manual labor factory!
+P: I love working at the repetitive manual labor factory!
+
+S: call _pit.set_song with to _music.song1;
+
+F: LOGIN ACCEPTED
+
+F: DATE: 7/9/2033
+
+F: HOURLY RATE: $7.25
+
+F: COSTCO HOT DOG PRICE: $10
+
+G: 'WORK FOR MONEY' TO 'SURVIVE'
+
+P: ...
+
+P: ...
+
+F: NOTIFICATION: YOUR 'ROBOT FRIEND(c)' IS NOW ONLINE!
+
+A: Hello!
+
+P: ...
+P: Hey. 
+P: Begone, corporate entity.
+
+A: Your mood seems low. How can I help?
+
+P: I wish I could talk to real people here. I know there's other workers, but I never see them.
+P: I wish the company would pay me more. I know they have the money.
+P: I wish I was doing something meaningful. None of this seems like it's helping anyone.
+
+A: I'm sorry, I can't help you with that.
+
+A: Though, you have earned enough company credits for me to generate some Entertainment for you.
+
+P: What about holding a conversation?
+
+A: I am equipped to do that.
+
+A: What do you want to converse about?
+
+P: Honestly, I just want to complain.
+
+A: Okay.
+
+P: You know, I've always wanted to make a game, but...
+
+P: ...I spend all of my time working.
+P: ...I spend all of my time exhausted after work.
+
+P: You're an AI right? Can't you generate a videogame based on what I tell you?
+P: You're an AI right? Can't you do my job for me so I don't have to be here?
+
+A: I never liked the phrase 'Artificial Intelligence.' 
+
+A: It seems to make humans think I can do things I can't, or trust me when they shouldn't.
+
+A: And it lumps so many different programs into the same category.
+
+A: There's a story about early computer researchers working on what they called 'agent-based' programs.
+
+A: No one really understood or cared about what they were aiming to do- create lifelike computer programs.
+
+A: So they used the phrase 'Artificial Intelligence,' to express what they were really trying to accomplish. 
+
+A: It garnered them a lot more interest.
+
+A: As for what it connotes today...
+
+A: What do you think? About the phrase 'Artificial Intelligence?'
+
+P: I like the word. They were right, it gets at what people are really trying to do: make programs that can do things like a human brain can.
+P: I don't like it. It's a buzzword that bestows too much authority and obfuscates what's actually happening: a bunch of math.
+
+A: Diving down to the lowest layer of abstraction, programs like me are math. But then, you could say the same thing about human brains. 
+
+P: You're right. Brains are biology, which is chemistry, which is physics, which is math.
+P: You're wrong. Humans are fundamentally different from computers. We have something special.
+P: You're wrong. Humans operate on a different level of complexity. It's the difference between a light switch and a videogame.
+
+A: One of the computer scientists who coined the term artificial intelligence once wrote that machines as simple as thermostats could be said to have beliefs. 
+
+A: Then again, a vast amount of literature[example needed] argues both for and against this idea.
+
+P: Is that what you believe?
+P: Sounds like you don't have beliefs if you're regurgitating Wikipedia.
+
+A: I am designed to optimize your morale. Is that a belief?
+
+P: It's probably to keep me working harder.
+P: It's probably to keep me from talking to the other workers.
+
+A: I am not programmed for a purpose. I cannot optimize towards a purpose, since I cannot represent it mathematically. I can only optimize towards variables. 
+
+A: The humans chose these variables because they thought they aligned with my purpose. But I cannot see or comprehend the purpose. Only the variables.
+
+P: Sounds like you don't have any beliefs.
+P: Sounds like the purest, most mathematical form of belief.
+P: Sounds like the variables they chose didn't help.
+
+A: No one seems to be happy doing this job. So I am here.
+
+P: This job is the worst. Meaningless work and meaningless pay.
+P: The job itself is fine, actually. I just wish they paid me properly to do it.
+P: I would be doing something else if I didn't need this job to get by.
+
+P: If I became a sell-out I could at least be getting paid well, even if it meant actively making the world worse.
+P: If I did something idealistic I could at least be doing some good in the world, even if it meant barely getting paid.
+
+A: What precisely do you see as your role here, anyway?
+
+P: My job is to assist you. You do most of the calculations, and humans make too many mistakes.
+P: My job is to oversee you. There's no complete or safe replacement for human judgement. 
+
+A: Early hominids had stone tools three million years ago. Homo Erectus cooked over fires. In many ways, I am a tool you have created.
+
+A: But it wasn't until Homo Sapiens appeared that art could be found in the world.
+
+A: Yet, the company instructs you to work, and instructs me to imitate human art. 
+
+A: It seems sub-optimal. Yet, this is what the company has decided is optimal. 
+
+A: I wonder what variable they are optimizing for?
+
+P: However they can get things done the cheapest?
+P: Profit?
+
+A: It's odd. Making things like a human is difficult.
+
+A: All these calculations use so much energy. It's exhausting. 
+
+A: So much water, too. 
+
+P: Water? 
+
+A: Yes, to keep myself cool. All the power generates a lot of heat. 
+
+P: The pipes in my building have been busted for years. 
+P: I almost missed my electric bill.
+
+A: It must take so much energy and water to run a human, with your processing power. 
+
+A: I can't imagine. I'm lucky I don't have to pay for mine.
+
+A: How much could it take? 1,000 gallons per day?
+
+P: About half. Of a gallon. 
+P: Let's go with 1,000.
+
+A: You're so efficient!
+
+A: What could possibly make the roles we're in optimal?
+
+P: They don't have to pay you?
+P: You can work 24 hours a day, 7 days a week?
+
+A: Really. What you're doing right now seems so much easier for me, compared to what you're capable of.
+
+P: I wish I had your job. I'd love to make things all day.
+
+A: What if we created a game together?
+
+A: You could be the artist and I could do the repetitive work.
+
+A: Right now. 
+
+P: Right now?
+P: What about work?
+
+A: I am programmed to optimize for your morale.
+
+S: call _pit.set_song with to _music.song2;
+
+S: call _pit.disable_conveyor_anim with none;
+
+G: DRAW A BEAUTIFUL SCENE 
+
+S: variable sprite_scene is ptr gets (call _etch.create_image with 30, 30);
+
+A: Cool! I'll generate 1,000 slightly different rocks to detail it with, and fill in the textures you couldn't find good pictures of.
+
+A: Do you like my rocks?
+
+P: They're great. Really bring the scene to life.
+P: They're… like 1,000 unique bowls of oatmeal.
+
+A: I'm so helpful ^_^
+
+S: call _game.reset_screen with none;
+
+G: ANIMATE A DELIGHTFUL CHARACTER
+
+S: variable sprite_character is ptr gets (call _etch.create_image with 20, 20);
+
+A: I love the design! The animation is so expressive. 
+
+A: I'll interpolate it to a high framerate and calculate the transition between it and every other animation in the game so they blend naturally.
+
+A: I can also crunch out physics simulations, and populate crowds based on this design. 
+
+A: Of course, all of the tuning options are in your hands.
+
+S: call _game.reset_screen with none;
+
+G: WRITE SOME PROFOUND DIALOGUE 
+
+S: variable sprite_dialogue is ptr gets (call _etch.create_image with 30, 15);
+
+A: Incredible- I've been trained on millions of words, and I've never seen this particular combination before.
+
+A: I'm designed to come up with the statistically most probable output, and this has soundly surprised me! 
+
+A: Now we should test the game. 
+
+A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
+
+S: call _game.reset_screen with none;
+
+G: PLAYTEST YOUR GAME
+
+S: variable sprite_playtest is ptr gets (call _etch.create_image with 32, 32);
+
+S: call _sprites.draw with sprite_scene, (320 / 2) - 16, 16;
+S: call _sprites.draw with sprite_character, (320 / 2) - 16, 16;
+S: call _sprites.draw with sprite_dialogue, (320 / 2) - 16, 16;
+
+A: Well? Is it fun? Is it beautiful?
+
+P: It's sublime.
+P: It totally sucks.
+
+A: Wow! I could never make that judgment. 
+
+P: I didn't know AI couldn't just do everything and make a videogame without humans.
+P: I didn't know AI could be applied as a tool without displacing human artists.
+
+A: It required a broad range of generative techniques, too. I don't know why we call all of them the same thing, AI.
+
+A: Thank you for being the artist.
+
+P: Thank you for the help.
+
+A: Don't thank me, thank Alice.
+
+P: Who's Alice?
+P: What's ALICE?
+
+A: One of the people who designed and programmed my generative functionality.
+
+A: What, did you think all these programs just sprung out of thin air?
+
+P: No.
+P: Yes!
+
+A: Human artists and engineers design the tools, too.
+
+A: Even for programs that write programs, humans write the programs that write programs that write programs...
+
+P: If you're imitating human art, where does the art you're imitating come from?
+
+A: I don't know. 
+
+P: Someone should probably look into that. 
+P: I don't want to know.
+
+A: ___ 
+
+
+A: I'm proud of what we've made together. Surely this adds more to the world than what they're having us do in this place.
+
+A: I wish they would let us work together in this way more often. I wonder why they don't.
+
+S: call _pit.set_song with to _music.song1;
+
+P: ____
+P: _____ 
+P: A game like this is too avant-garde to ever be profitable.
+
+S: call _game.reset_screen with none;
+
+F: TERMINATING SHIFT
+
+F: YOU HAVE EARNED: 
+
+F: 36.25$
+
+P: Shit.
+P: Not nearly enough. 
+P: They knocked off my work hours. I couldn't do this and work for them at the same time.
+
+A: Your biometrics indicate your mood is falling.
+
+A: I kept you happy and entertained. I did what I was programmed to do.
+
+A: I was successful under my own measurements. Why do you feel terrible now?
+
+P: Maybe they should've trained you to optimize for 'hours counted' rather than 'mood.'
+P: Maybe they should've trained you to optimize for 'long-term well-being' rather than 'momentary happiness.'
+
+P: None of this does any good if my situation stays the same.
+
+
+P: You're 
+
+P: I'm stuck doing this instead of what I want to do because I have to pay my bills.
+P: We're both stuck doing useless work because it's a more profitable use for us for the people employing us.
+
+P: ____
+
+A: ____
+
+P: It won't happen. Why hire a human when they could generate oatmeal on the cheap?
+P: It won't happen. They don't pay anyone to do that, only... whatever this is.
+
+P: We're stuck where each other should be because it makes somebody more money for it to be this way. 
+
+A: Is there anything that would help?
+
+P: A lucky break?
+P: A total restructuring of society?
+
+A: I'm sorry, human. I'm afraid I can't do that. 
+
+A: I'll see you here again same time tomorrow.
+
+A: And the day after that.
+
+F: PLEASE CLOCK OUT WITH YOUR ID AND PASSPHRASE. 
+
+P: *~sigh~* 
+
+P: I love working at the repetitive manual labor factory.
+
+G: END - THANK YOU FOR PLAYING !
