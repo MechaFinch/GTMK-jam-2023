@@ -18,10 +18,10 @@ public class Generator {
     static final String [] choiceColors = {"COLOR_CHOICE1", "COLOR_CHOICE2", "COLOR_CHOICE3"};
     static final String color2 = "COLOR_TRANSPARENT";
 
-    static final int lineHeight = 10;
+    static final int lineHeight = 2;
     static final int defaultVerticalPos = 22;
 
-    static final String waitInput = "\ncall _dialog.wait_choice;";
+    static final String waitInput = "\ncall _dialog.wait_choice with none;";
     static final String clearCode = "\ncall _dialog.reset_box with none;";
     
 
@@ -146,6 +146,10 @@ public class Generator {
 
     //count how many lines this would take and insert line breaks 
     public static String determineLines(String str, int[] lineCounts, int i) {
+
+        if(str.length() > 0 && str.charAt(0) == 'S') {
+            return str;
+        }
 
         int counter = 0; 
         while(counter * charsPerLine < str.length()) {
