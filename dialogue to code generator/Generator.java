@@ -14,10 +14,10 @@ public class Generator {
     static final String colorAI = "COLOR_ROBOT_TEXT";
     static final String colorHuman = "COLOR_HUMAN_TEXT";
     static final String colorWhite = "COLOR_WHITE";
-    static final String [] choiceColors = {"COLOR_CHOICE1", "", "COLOR_CHOICE3"};
+    static final String [] choiceColors = {"COLOR_CHOICE1", "COLOR_CHOICE2", "COLOR_CHOICE3"};
     static final String color2 = "COLOR_TRANSPARENT";
 
-    static final String clearCode = "\ncall _dialog.reset_box with none;\n";
+    static final String clearCode = "\ncall _dialog.reset_box with none;";
 
     public static void main(String [] args) throws IOException {
 
@@ -47,7 +47,7 @@ public class Generator {
 
                 //AI dialogue, no need to check for choices
                 outputStrings.add(clearCode);
-                outputStrings.add(generateCode(lines[i].substring(2), colorAI, lineBreakCounts[i], i));
+                outputStrings.add(generateCode(lines[i].substring(3), colorAI, lineBreakCounts[i], i));
 
             }
 
@@ -68,7 +68,7 @@ public class Generator {
                 String code = "";
                 
                 for(int l = 0; l < choicesCount; l++) {
-                    code += generateCode(lines[i + l].substring(2), choiceColors[l], lineBreakCounts[i + l], i + l);
+                    code += generateCode(lines[i + l].substring(3), choiceColors[l], lineBreakCounts[i + l], i + l);
                 }
 
                 code = code + "\ncall _dialog.wait_dialog with " + choicesCount + ", " + choicesLines[0] + ", " + choicesLines[1] + ", " + choicesLines[2] + ";";
@@ -82,7 +82,7 @@ public class Generator {
 
                 //factory dialogue
                 outputStrings.add(clearCode);
-                outputStrings.add(generateCode(lines[i].substring(2), colorWhite, lineBreakCounts[i], i));
+                outputStrings.add(generateCode(lines[i].substring(3), colorWhite, lineBreakCounts[i], i));
 
 
             }
@@ -91,7 +91,7 @@ public class Generator {
 
                 //game dialogue- could merge w factory dialogue its prob just a diff color 
                 outputStrings.add(clearCode);
-                outputStrings.add(generateCode(lines[i].substring(2), colorWhite, lineBreakCounts[i], i));
+                outputStrings.add(generateCode(lines[i].substring(3), colorWhite, lineBreakCounts[i], i));
 
 
             }
@@ -100,7 +100,7 @@ public class Generator {
 
                 //special flag for raw code 
 
-                outputStrings.add("\n" + lines[i].substring(2));
+                outputStrings.add("\n" + lines[i].substring(3));
             }
         }
 
@@ -164,6 +164,3 @@ public class Generator {
     }
 
 }
-
-
-
