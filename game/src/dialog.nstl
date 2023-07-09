@@ -1,0 +1,183 @@
+
+--
+-- Dialog
+-- Manages dialog
+--
+
+library _util;
+library _keys from "keyboard";
+library _ivt;
+library _gutil from "simvideo/gutil";
+library _pit from "periodic.asm";
+library _shapes from "simvideo/shapes";
+library _text from "simvideo/text";
+
+-- halts, then returns
+external function _util.halt of none returns none;
+-- enables interrupts, returning the previous value of PF
+external function _util.enable_interrupts of none returns u16;
+-- disables interrupts, returning the previous value of PF
+external function _util.disable_interrupts of none returns u16;
+
+-- sets a single color
+external function _gutil.set_color of u8 idx, u32 rgb returns none;
+
+external function _shapes.fill_rect of i16 x1, i16 y1, i16 w, i16 h, u8 fgc returns none;
+
+-- aligned single character
+external function _text.a_char of u8 chr, u8 fgc, u8 bgc, u8 row, u8 col returns none;
+
+define CHOICE_1_IDX is 50;
+define CHOICE_2_IDX is 51;
+define CHOICE_3_IDX is 52;
+define UNSELECTED_COLOR is 0xFF_FF_FF;
+define SELECTED_COLOR is 0xF0_00_F0;
+
+define FLASH_TIME is 75;
+
+define DIALOG_AREA_X is 2 * 8;
+define DIALOG_AREA_Y is 22 * 8;
+define DIALOG_AREA_W is 320 - 32;
+define DIALOG_AREA_H is (240 - DIALOG_AREA_Y) - 8;
+define DIALOG_BG_IDX is 1;
+
+define KEY_UP is 0x26;
+define KEY_DOWN is 0x28;
+define KEY_LEFT is 0x25;
+define KEY_RIGHT is 0x27;
+define KEY_ENTER is 0x0A;
+define KEY_SPACE is 0x20;
+
+-- waits on a dialog selection
+-- num_choices = number of available choices
+-- c1_h = height in lines of choice 1
+-- c2_h = height in lines of choice 2
+-- c3_h = height in lines of choice 3
+function wait_dialog of u8 num_choices begin
+	variable current_choice is u8 gets 1;
+	
+	call highlight_choice with 1;
+
+	while 1 do
+		-- wait for input
+		call _util.halt with none;
+		
+		if u16 at (to _ivt.last_interrupt_source) != 3 then
+			continue;
+		end if
+		
+		-- we have a keydown event
+		variable pressed_key is u8 gets u8 at (to _keys.last_pressed);
+		
+		-- up/down select choices
+		if pressed_key = KEY_UP then
+			if current_choice != 1 then
+				current_choice gets current_choice - 1;
+				
+				call highlight_choice with current_choice;
+			end if
+		elseif pressed_key = KEY_DOWN then
+			if current_choice != num_choices then
+				current_choice gets current_choice + 1;
+				
+				call highlight_choice with current_choice;
+			end if
+		elseif (pressed_key = KEY_ENTER) or (pressed_key = KEY_SPACE) then
+			-- play a lil flash, then return
+			call flash_choice with current_choice, FLASH_TIME;
+			call flash_choice with current_choice, FLASH_TIME;
+			call flash_choice with current_choice, FLASH_TIME;
+			return;
+		end if
+	end while
+end function
+
+function highlight_choice of u8 choice begin
+	if choice = 1 then
+		call _gutil.set_color with CHOICE_1_IDX, SELECTED_COLOR;
+		call _gutil.set_color with CHOICE_2_IDX, UNSELECTED_COLOR;
+		call _gutil.set_color with CHOICE_3_IDX, UNSELECTED_COLOR;
+	elseif choice = 2 then
+		call _gutil.set_color with CHOICE_1_IDX, UNSELECTED_COLOR;
+		call _gutil.set_color with CHOICE_2_IDX, SELECTED_COLOR;
+		call _gutil.set_color with CHOICE_3_IDX, UNSELECTED_COLOR;
+	else
+		call _gutil.set_color with CHOICE_1_IDX, UNSELECTED_COLOR;
+		call _gutil.set_color with CHOICE_2_IDX, UNSELECTED_COLOR;
+		call _gutil.set_color with CHOICE_3_IDX, SELECTED_COLOR;
+	end if
+end function
+
+-- flashes once
+function flash_choice of u8 choice, u16 time begin
+	variable idx is u8;
+	
+	if choice = 1 then
+		idx gets CHOICE_1_IDX;
+	elseif choice = 2 then
+		idx gets CHOICE_2_IDX;
+	else
+		idx gets CHOICE_3_IDX;
+	end if
+	
+	call _gutil.set_color with idx, UNSELECTED_COLOR;
+	
+	variable end_time is u32 gets u32 at (to _pit.millis_counter) + (time as u32);
+	
+	while 1 do
+		call _util.halt with none;
+		
+		if u32 at (to _pit.millis_counter) >= end_time then
+			break;
+		end if
+	end while
+	
+	call _gutil.set_color with idx, SELECTED_COLOR;
+	
+	end_time gets u32 at (to _pit.millis_counter) + (time as u32);
+	
+	while 1 do
+		call _util.halt with none;
+		
+		if u32 at (to _pit.millis_counter) >= end_time then
+			break;
+		end if
+	end while
+end function
+
+-- blanks the dialog box
+function reset_box of none begin
+	call _shapes.fill_rect with DIALOG_AREA_X, DIALOG_AREA_Y, DIALOG_AREA_W, DIALOG_AREA_H, 1;
+end function
+
+-- types out text
+function type_text of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col, u16 rate begin
+	variable i is u16 gets 0;
+	variable current_col is u8 gets col;
+	
+	until i = len do
+		variable c is u8 gets str index i;
+		
+		if c = 0x0a then
+			-- newline
+			row gets row + 1;
+			current_col gets col;
+		else
+			-- wait to draw next char
+			variable next_time is u32 gets (u32 at (to _pit.millis_counter)) + (rate as u32);
+			while 1 do
+				call _util.halt with none;
+				
+				if (u32 at (to _pit.millis_counter)) >= next_time then
+					break;
+				end if
+			end while
+			
+			-- draw it
+			call _text.a_char with c, fgc, bgc, row, current_col;
+			current_col gets current_col + 1;
+		end if
+		
+		i gets i + 1;
+	end until
+end function

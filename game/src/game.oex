@@ -1,11 +1,17 @@
 #entry game.main
+out\dialog.obj
 out\util.obj
 out\gutil.obj
-out\dma.obj
-out\palettes.obj
 out\sprites.obj
 out\spritedata.obj
+out\text.obj
 out\ivt.obj
-out\pit.obj
 out\game.obj
 out\keys.obj
+out\spriteanim.obj
+out\gamesequence.obj
+out\dma.obj
+out\palettes.obj
+out\pit.obj
+out\shapes.obj
+out\etch.obj

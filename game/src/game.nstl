@@ -3,6 +3,9 @@
 -- Gaming!
 --
 
+define SCREEN_WIDTH is 320;
+define SCREEN_HEIGHT is 240;
+
 -- libraries included to make sure they're there
 library _ivt;
 library _pit from "periodic.asm";
@@ -15,13 +18,28 @@ library _palettes from "../resources/palettes";
 library _gutil from "simvideo/gutil";
 library _sprites from "simvideo/sprites";
 library _spritedata from "../resources/spritedata";
+library _spriteanim;
+library _text from "simvideo/text";
+library _dialog;
+library _etch;
+library _gamesequence;
 
 -- draws a sprite without transparency
 external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
+-- draws a part of the sprite without transparency
+external function _sprites.draw_part of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+-- gets the width of a sprite
+external function _sprites.get_width of u8 pointer sp returns u16;
+-- gets the height of a sprite
+external function _sprites.get_height of u8 pointer sp returns u16;
 
 -- sets the global palette
 external function _gutil.set_palette of u8 pointer palette returns none;
 
+-- aligned single character
+external function _text.a_char of u8 chr, u8 fgc, u8 bgc, u8 row, u8 col returns none;
+-- aligned string, no wrap, no scroll
+external function _text.a_string of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col returns none;
 
 -- halts, then returns
 external function _util.halt of none returns none;
@@ -33,11 +51,33 @@ external function _util.disable_interrupts of none returns u16;
 -- initializes the heap
 external function _dma.init of ptr heap_start, u32 max_size returns none;
 
+-- runs a function later
+external function _pit.runlater of ptr func, u16 time returns none;
+
+-- waits on a dialog selection
+-- num_choices = number of available choices
+-- c1_h = height in lines of choice 1
+-- c2_h = height in lines of choice 2
+-- c3_h = height in lines of choice 3
+external function _dialog.wait_dialog of u8 num_choices, u8 c1_h, u8 c2_h, u8 c3_h;
+-- types out text
+external function _dialog.type_text of u8 pointer str, u16 len, u8 fgc, u8 bgc, u8 row, u8 col, u16 rate;
+-- blanks the dialog box
+external function _dialog.reset_box of none;
+
+-- lets the user etch-a-sketch a drawing
+external function _etch.create_image of none returns u8 pointer;
+
 -- misc
 external function _pit.end_window_flicker of none;
 external function _pit.end_server_flicker1 of none;
 external function _pit.end_server_flicker2 of none;
 external function _pit.end_server_flicker3 of none;
+external function _pit.end_conv_wheel_anim of none;
+external function _pit.enable_conveyor_anim of none;
+external function _pit.disable_conveyor_anim of none;
+external function _gamesequence.sequence of none;
+--external function _spriteanim.animate_conveyor of none;
 
 function main of none begin
 	call _util.disable_interrupts with none;
@@ -52,13 +92,47 @@ function main of none begin
 	call _pit.end_server_flicker1 with none;
 	call _pit.end_server_flicker2 with none;
 	call _pit.end_server_flicker3 with none;
+	call _pit.end_conv_wheel_anim with none;
 	
-	call _sprites.draw with to _spritedata.bg, 0, 0;
+	-- reset screen
+	call reset_screen with none;
 	
 	-- off we go
 	call _util.enable_interrupts with none;
 	
+	call _gamesequence.sequence with none;
+	
 	while 1 do
+		-- end
 		call _util.halt with none;
 	end while
+end function
+
+-- resets the screen
+function reset_screen of none begin
+	-- draw initial scene
+	call _sprites.draw with to _spritedata.bg, 0, 0;
+	
+	variable x is u16;
+	variable bg_height is u16 gets (call _sprites.get_height with to _spritedata.bg);
+	variable conv_height is u16 gets (call _sprites.get_height with to _spritedata.conveyorbelt);
+	
+	variable conv_width is u16 gets (call _sprites.get_width with to _spritedata.conveyorbelt);
+	x gets 0;
+	
+	until x + conv_width >= SCREEN_WIDTH do
+		call _sprites.draw with to _spritedata.conveyorbelt, x, bg_height;
+		x gets x + conv_width;
+	end until
+	
+	call _sprites.draw_part with to _spritedata.conveyorbelt, x, bg_height, 0, 0, SCREEN_WIDTH - x, conv_height;
+	
+	variable wheel_width is u16 gets (call _sprites.get_width with to _spritedata.conveyorwheels);
+	x gets 0;
+	variable wheel_height is u16 gets conv_height + bg_height;
+	
+	until x >= SCREEN_WIDTH do
+		call _sprites.draw with to _spritedata.conveyorwheels, x, wheel_height;
+		x gets x + wheel_width;
+	end until
 end function

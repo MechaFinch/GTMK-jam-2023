@@ -14,6 +14,7 @@
 %include "ivt.asm" as ivt
 %include "util" as util
 %include "memory/dma" as dma
+%include "spriteanim" as spra
 
 %define PALETTE_START 0xF003_2C00
 
@@ -44,12 +45,22 @@
 %define SERVER_FLICKER_COLOR_D 0x00_FF_00
 %define SERVER_FLICKER_COLOR_F 0x30_36_40
 
-%define DEFAULT_RUNLATER_SIZE 16
+%define CONV_WHEEL_ANIM_PERIOD 200
+%define CONV_WHEEL_ANIM_TIME 100
+%define CONV_WHEEL_COL1_IDX 19
+%define CONV_WHEEL_COL2_IDX 20
+%define CONV_WHEEL_COLOR1 0x60_5D_5B
+%define CONV_WHEEL_COLOR2 0x7E_76_75
+
+%define RUNLATER_SIZE_INC 16
+%define RUNLATER_SIZE_DEC 32
 
 millis_counter: 	dp 0
 
 runlater_array_ptr:	dp 0
-runlater_array_len: dw DEFAULT_RUNLATER_SIZE
+runlater_array_len: dw RUNLATER_SIZE_INC
+
+conveyor_anim_enabled:	db 1
 
 
 
@@ -58,7 +69,7 @@ init:
 	PUSH BP
 	MOVW BP, SP
 	
-	PUSH ptr DEFAULT_RUNLATER_SIZE
+	PUSH ptr RUNLATER_SIZE_INC
 	call dma.calloc
 	ADD SP, 4
 	
@@ -128,6 +139,18 @@ pit_handler:
 	JNZ .task3
 	CALL start_server_flicker3
 .task3:
+
+	MOVW B:C, J:I
+	DIVM B:C, CONV_WHEEL_ANIM_PERIOD
+	CMP B, 0
+	JNZ .task4
+	CALL start_conv_wheel_anim
+.task4:
+
+	CMP byte [conveyor_anim_enabled], 0
+	JE .task5
+	CALL spra.animate_conveyor
+.task5:
 	
 	; handle runlater tasks
 .runlater_tasks:
@@ -135,13 +158,14 @@ pit_handler:
 	; if so, run the function
 	MOVW J:I, [runlater_array_ptr]
 	MOV K, [runlater_array_len]
+	MOV L, 0
 .runlater_loop:
 	MOVW D:A, [J:I]
 	CMP D, 0
 	MOV C, F
 	CMP A, 0
 	AND F, C
-	JZ .runlater_loop_next
+	JZ .runlater_loop_next_zero
 	
 	; there is a time. is it reached?
 	MOVW B:C, [millis_counter]
@@ -160,13 +184,38 @@ pit_handler:
 	; re-load runlater array in case it got reallocated
 	MOVW J:I, [runlater_array_ptr]
 	MOV K, [runlater_array_len]
+	MOV L, 0
+	JMP .runlater_loop
 
+.runlater_loop_next_zero:
+	INC L
 .runlater_loop_next:
 	ADD I, 8
 	ICC J
 	SUB K, 8
 	JNZ .runlater_loop
-
+	
+	; if 8+ runlater entries are empty, downsize the list
+	CMP word [runlater_array_len], RUNLATER_SIZE_DEC
+	JBE .done
+	CMP L, (RUNLATER_SIZE_DEC / 8)
+	JB .done
+	
+	MOVZ J:I, [runlater_array_len]
+	SUB I, RUNLATER_SIZE_DEC
+	MOV [runlater_array_len], I
+	PUSH J
+	PUSH I
+	
+	MOVW J:I, [runlater_array_ptr]
+	PUSH J
+	PUSH I
+	CALL dma.rcalloc
+	ADD SP, 8
+	
+	MOVW [runlater_array_ptr], D:A
+	
+.done:
 	POPA
 	IRET
 
@@ -179,6 +228,18 @@ runlater:
 	PUSH I
 	PUSH J
 	PUSH K
+	
+	; make sure the pointer is valid
+	MOVW D:A, [BP + 8]
+	CMP D, 0
+	MOV D, F
+	CMP A, 0
+	JNZ .ok
+	
+	; error
+	CALLA 0
+
+.ok:
 	
 	; find the next available runlater slot
 	MOVW J:I, [runlater_array_ptr]
@@ -200,6 +261,7 @@ runlater:
 	JNZ .find_loop
 	
 	; no slot found. reallocate one
+.realloc:
 	CALL util.disable_interrupts
 	PUSH A
 	
@@ -213,7 +275,7 @@ runlater:
 	MOVW D:A, [runlater_array_ptr]
 	PUSH D
 	PUSH A
-	CALL dma.realloc
+	CALL dma.rcalloc
 	ADD SP, 8
 	
 	MOVW [runlater_array_ptr], D:A
@@ -330,4 +392,43 @@ end_server_flicker3:
 	MOVW D:A, SERVER_FLICKER_COLOR_D
 	MOV [B:C + (3 * SERVER_FLICKER3_COL_IDX) + 0], A
 	MOV [B:C + (3 * SERVER_FLICKER3_COL_IDX) + 2], DL
+	RET
+
+
+
+start_conv_wheel_anim:
+	MOVW B:C, PALETTE_START
+	MOVW D:A, CONV_WHEEL_COLOR1
+	MOV [B:C + (3 * CONV_WHEEL_COL1_IDX) + 0], A
+	MOV [B:C + (3 * CONV_WHEEL_COL1_IDX) + 2], DL
+	
+	MOVW D:A, CONV_WHEEL_COLOR2
+	MOV [B:C + (3 * CONV_WHEEL_COL2_IDX) + 0], A
+	MOV [B:C + (3 * CONV_WHEEL_COL2_IDX) + 2], DL
+	
+	PUSH word CONV_WHEEL_ANIM_TIME
+	PUSH ptr end_conv_wheel_anim
+	CALL runlater
+	ADD SP, 6
+	RET
+
+end_conv_wheel_anim:
+	MOVW B:C, PALETTE_START
+	MOVW D:A, CONV_WHEEL_COLOR1
+	MOV [B:C + (3 * CONV_WHEEL_COL2_IDX) + 0], A
+	MOV [B:C + (3 * CONV_WHEEL_COL2_IDX) + 2], DL
+	
+	MOVW D:A, CONV_WHEEL_COLOR2
+	MOV [B:C + (3 * CONV_WHEEL_COL1_IDX) + 0], A
+	MOV [B:C + (3 * CONV_WHEEL_COL1_IDX) + 2], DL
+	RET
+
+enable_conveyor_anim:
+	MOV A, 1
+	MOV [conveyor_anim_enabled], AL
+	RET
+	
+disable_conveyor_anim:
+	MOV A, 0
+	MOV [conveyor_anim_enabled], AL
 	RET

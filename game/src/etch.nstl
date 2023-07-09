@@ -1,0 +1,254 @@
+
+--
+-- etch-a-sketch
+--
+
+library _util;
+library _keys from "keyboard";
+library _ivt;
+library _gutil from "simvideo/gutil";
+library _pit from "periodic.asm";
+library _shapes from "simvideo/shapes";
+library _dma from "memory/dma";
+
+-- halts, then returns
+external function _util.halt of none returns none;
+-- enables interrupts, returning the previous value of PF
+external function _util.enable_interrupts of none returns u16;
+-- disables interrupts, returning the previous value of PF
+external function _util.disable_interrupts of none returns u16;
+
+-- sets a single color
+external function _gutil.set_color of u8 idx, u32 rgb returns none;
+
+external function _shapes.outline_rect of i16 x1, i16 y1, i16 w, i16 h, u8 fgc returns none;
+external function _shapes.fill_rect of i16 x1, i16 y1, i16 w, i16 h, u8 fgc returns none;
+
+-- allocate n bytes on the heap, returning a pointer to it
+external function _dma.malloc of u32 n returns ptr;
+
+define DRAW_AREA_START_X is 15;
+define DRAW_AREA_START_Y is 15;
+define DRAW_AREA_WIDTH is 290;
+define DRAW_AREA_HEIGHT is 170;
+define DRAW_FGC_IDX is 1;
+define DRAW_BGC_IDX is 2;
+
+define SELECTION_BOX_IDX is 17;
+define DRAW_BORDER_IDX is 18;
+
+define DRAWING_PIXEL_SIZE is 4;
+define DRAWING_PIXEL_WIDTH is DRAW_AREA_WIDTH / DRAWING_PIXEL_SIZE;
+define DRAWING_PIXEL_HEIGHT is DRAW_AREA_HEIGHT / DRAWING_PIXEL_SIZE;
+
+define KEY_UP is 0x26;
+define KEY_DOWN is 0x28;
+define KEY_LEFT is 0x25;
+define KEY_RIGHT is 0x27;
+define KEY_ENTER is 0x0A;
+define KEY_SPACE is 0x20;
+define KEY_SHIFT is 0x10;
+
+-- lets the user etch-a-sketch a drawing
+function create_image of u16 width, u16 height returns u8 pointer begin
+	-- allocate image
+	variable sketch is u8 pointer gets (call _dma.malloc with 4 + (DRAWING_PIXEL_WIDTH * DRAWING_PIXEL_HEIGHT));
+	
+--	u16 at sketch gets width;
+--	sketch gets sketch + 2;
+--	u16 at sketch gets height;
+--	sketch gets sketch - 2;
+
+	u16 at sketch gets DRAWING_PIXEL_WIDTH;
+	sketch gets sketch + 2;
+	u16 at sketch gets DRAWING_PIXEL_HEIGHT;
+	sketch gets sketch - 2;
+	
+	-- clear sketch
+	variable x is u16 gets 0;
+	variable y is u16 gets 0;
+	
+	-- sketch area
+	until y >= DRAWING_PIXEL_HEIGHT do
+		x gets 0;
+		
+		until x >= DRAWING_PIXEL_WIDTH do
+			call plot_pixel with sketch, x, y, DRAW_BGC_IDX;
+		
+			x gets x + 1;
+		end until
+		
+		y gets y + 1;
+	end until
+	
+	-- border
+	x gets -1;
+	until x > DRAWING_PIXEL_WIDTH do
+		call disp_pixel with x, -1, DRAW_BORDER_IDX;
+		call disp_pixel with x, DRAWING_PIXEL_HEIGHT, DRAW_BORDER_IDX;
+		x gets x + 1;
+	end until
+	
+	x gets -1;
+	until x > DRAWING_PIXEL_HEIGHT do
+		call disp_pixel with -1, x, DRAW_BORDER_IDX;
+		call disp_pixel with DRAWING_PIXEL_WIDTH, x, DRAW_BORDER_IDX;
+		x gets x + 1;
+	end until
+	
+	-- highlight initial position
+	x gets 0;
+	y gets 0;
+	call draw_box with x, y;
+	
+	variable shift_held is boolean gets 0;
+	
+	-- sketching time
+	while 1 do
+		-- wait for input
+		call _util.halt with none;
+		
+		if u16 at (to _ivt.last_interrupt_source) = 3 then
+			-- key down
+			variable pressed_key is u8 gets u8 at (to _keys.last_pressed);
+			
+			if pressed_key = KEY_SHIFT then
+				-- mark shift held, paint
+				shift_held gets 1;
+				
+				call plot_pixel with sketch, x, y, DRAW_FGC_IDX;
+			elseif pressed_key = KEY_ENTER then
+				-- finish
+				return sketch;
+			elseif pressed_key = KEY_UP then
+				-- go up
+				call clear_box with sketch, x, y;
+				if y > 0 then
+					y gets y - 1;
+				end if
+				call draw_box with x, y;
+			
+				if shift_held then
+					call plot_pixel with sketch, x, y, DRAW_FGC_IDX;
+				end if
+			elseif pressed_key = KEY_DOWN then
+				-- go down
+				call clear_box with sketch, x, y;
+				if y < (DRAWING_PIXEL_HEIGHT - 1) then
+					y gets y + 1;
+				end if
+				call draw_box with x, y;
+				
+				if shift_held then
+					call plot_pixel with sketch, x, y, DRAW_FGC_IDX;
+				end if
+			elseif pressed_key = KEY_LEFT then
+				-- go left
+				call clear_box with sketch, x, y;
+				if x > 0 then
+					x gets x - 1;
+				end if
+				call draw_box with x, y;
+				
+				if shift_held then
+					call plot_pixel with sketch, x, y, DRAW_FGC_IDX;
+				end if
+			elseif pressed_key = KEY_RIGHT then
+				-- go right
+				call clear_box with sketch, x, y;
+				if x < (DRAWING_PIXEL_WIDTH - 1) then
+					x gets x + 1;
+				end if
+				call draw_box with x, y;
+				
+				if shift_held then
+					call plot_pixel with sketch, x, y, DRAW_FGC_IDX;
+				end if
+			end if
+		elseif u16 at (to _ivt.last_interrupt_source) = 2 then
+			-- key up
+			variable released_key is u8 gets u8 at (to _keys.last_released);
+			
+			if released_key = KEY_SHIFT then
+				shift_held gets 0;
+			end if
+		end if
+	end while
+end function
+
+-- plots a pixel in the sketch, recording it to the screen and the sketch buffer
+function plot_pixel of u8 pointer sketch, i16 x, i16 y, u8 col begin
+	variable sketch_index is u16 gets (y * DRAWING_PIXEL_WIDTH) + x + 4;
+	sketch index sketch_index gets col;
+	
+	call disp_pixel with x, y, col;
+end function
+
+-- draws a pixel to the screen
+function disp_pixel of i16 x, i16 y, u8 col begin
+	variable screen_x is i16 gets (x * DRAWING_PIXEL_SIZE) + DRAW_AREA_START_X;
+	variable screen_y is i16 gets (y * DRAWING_PIXEL_SIZE) + DRAW_AREA_START_Y;
+	call _shapes.fill_rect with screen_x, screen_y, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, col;
+end function
+
+-- draws a selection box around a sketch pixel
+function draw_box of u16 x, u16 y begin
+	variable screen_x is i16 gets (x * DRAWING_PIXEL_SIZE) + DRAW_AREA_START_X - 2;
+	variable screen_y is i16 gets (y * DRAWING_PIXEL_SIZE) + DRAW_AREA_START_Y - 2;
+	
+	call _shapes.outline_rect with screen_x, screen_y, DRAWING_PIXEL_SIZE + 4, DRAWING_PIXEL_SIZE + 4, SELECTION_BOX_IDX;
+end function
+
+-- clears the selection box around a sketch pixel
+function clear_box of u8 pointer sketch, u16 x, u16 y begin
+	variable sketch_index is u16 gets (y * DRAWING_PIXEL_WIDTH) + x + 4;
+	
+	variable c0 is u8 gets sketch index ((sketch_index - DRAWING_PIXEL_WIDTH) - 1);
+	variable c1 is u8 gets sketch index (sketch_index - DRAWING_PIXEL_WIDTH);
+	variable c2 is u8 gets sketch index ((sketch_index - DRAWING_PIXEL_WIDTH) + 1);
+	variable c3 is u8 gets sketch index (sketch_index - 1);
+	variable c4 is u8 gets sketch index (sketch_index + 1);
+	variable c5 is u8 gets sketch index ((sketch_index + DRAWING_PIXEL_WIDTH) - 1);
+	variable c6 is u8 gets sketch index (sketch_index + DRAWING_PIXEL_WIDTH);
+	variable c7 is u8 gets sketch index ((sketch_index + DRAWING_PIXEL_WIDTH) + 1);
+	
+	variable screen_x is i16 gets (x * DRAWING_PIXEL_SIZE) + DRAW_AREA_START_X;
+	variable screen_y is i16 gets (y * DRAWING_PIXEL_SIZE) + DRAW_AREA_START_Y;
+	
+	if y = 0 then
+		-- top 3
+		c0 gets DRAW_BORDER_IDX;
+		c1 gets DRAW_BORDER_IDX;
+		c2 gets DRAW_BORDER_IDX;
+	end if
+	
+	if x = 0 then
+		-- left 3
+		c0 gets DRAW_BORDER_IDX;
+		c3 gets DRAW_BORDER_IDX;
+		c5 gets DRAW_BORDER_IDX;
+	end if
+	
+	if y = (DRAWING_PIXEL_HEIGHT - 1) then
+		-- bottom 3
+		c5 gets DRAW_BORDER_IDX;
+		c6 gets DRAW_BORDER_IDX;
+		c7 gets DRAW_BORDER_IDX;
+	end if
+	
+	if x = (DRAWING_PIXEL_WIDTH - 1) then
+		-- right 3
+		c2 gets DRAW_BORDER_IDX;
+		c4 gets DRAW_BORDER_IDX;
+		c7 gets DRAW_BORDER_IDX;
+	end if
+	
+	call _shapes.fill_rect with screen_x, screen_y - DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c1;
+	call _shapes.fill_rect with screen_x + DRAWING_PIXEL_SIZE, screen_y - DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c2;
+	call _shapes.fill_rect with screen_x - DRAWING_PIXEL_SIZE, screen_y - DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c0;
+	call _shapes.fill_rect with screen_x - DRAWING_PIXEL_SIZE, screen_y, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c3;
+	call _shapes.fill_rect with screen_x + DRAWING_PIXEL_SIZE, screen_y, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c4;
+	call _shapes.fill_rect with screen_x - DRAWING_PIXEL_SIZE, screen_y + DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c5;
+	call _shapes.fill_rect with screen_x + DRAWING_PIXEL_SIZE, screen_y + DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c7;
+	call _shapes.fill_rect with screen_x, screen_y + DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, DRAWING_PIXEL_SIZE, c6;
+end function

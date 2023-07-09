@@ -1,0 +1,60 @@
+
+--
+-- Sprite Animation
+-- While palette animations are small enough to pack into periodic, sprite animations are more complex
+-- Functions to manage them go here
+--
+
+library _pit from "periodic";
+library _palettes from "../resources/palettes";
+library _gutil from "simvideo/gutil";
+library _sprites from "simvideo/sprites";
+library _spritedata from "../resources/spritedata";
+
+-- draws a sprite without transparency
+external function _sprites.draw of u8 pointer sp, i16 x, i16 y returns none;
+-- draws a part of the sprite without transparency
+external function _sprites.draw_part of u8 pointer sp, i16 x, i16 y, i16 sx, i16 sy, i16 w, i16 h returns none;
+-- gets the width of a sprite
+external function _sprites.get_width of u8 pointer sp returns u16;
+-- gets the height of a sprite
+external function _sprites.get_height of u8 pointer sp returns u16;
+
+define SCREEN_WIDTH is 320;
+define SCREEN_HEIGHT is 240;
+
+define CONVEYOR_PERIOD is 67; -- 15 fps
+variable conveyor_start is u16 gets 0;
+variable conveyor_next is u32 gets 0;
+function animate_conveyor of none begin
+	-- is it time to animate
+	variable time is u32 gets u32 at (to _pit.millis_counter);
+	
+	if time >= conveyor_next then
+		conveyor_next gets time + CONVEYOR_PERIOD;
+		
+		if conveyor_start < 5 then
+			conveyor_start gets (call _sprites.get_width with to _spritedata.conveyorbelt) - 1;
+		else
+			conveyor_start gets conveyor_start - 5;
+		end if
+		
+		-- yes it is. animate
+		variable x is u16 gets conveyor_start;
+		
+		variable bg_height is u16 gets (call _sprites.get_height with to _spritedata.bg);
+		variable conv_width is u16 gets (call _sprites.get_width with to _spritedata.conveyorbelt);
+		until x + conv_width >= SCREEN_WIDTH do
+			-- full conveyor sprites
+			call _sprites.draw with to _spritedata.conveyorbelt, x, bg_height;
+			
+			x gets x + conv_width;
+		end until
+		
+		variable conv_height is u16 gets (call _sprites.get_height with to _spritedata.conveyorbelt);
+		
+		-- partial conveyor sprites
+		call _sprites.draw_part with to _spritedata.conveyorbelt, x, bg_height, 0, 0, SCREEN_WIDTH - x, conv_height;
+		call _sprites.draw_part with to _spritedata.conveyorbelt, 0, bg_height, conv_width - conveyor_start, 0, conveyor_start, conv_height;
+	end if
+end function
