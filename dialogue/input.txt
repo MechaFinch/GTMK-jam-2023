@@ -220,26 +220,7 @@ A: Incredible- I've been trained on millions of words, and I've never seen this 
 
 A: I'm designed to come up with the statistically most probable output, and this has soundly surprised me! 
 
-A: Now we should test the game. 
 
-A: I've already run a few thousand tests and have some data. But 'fun' is objective and very human. Do the honors!
-
-S: call _game.reset_screen with none;
-
-G: PLAYTEST YOUR GAME
-
-S: variable sprite_playtest is ptr gets (call _etch.create_image with 32, 32);
-
-S: call _sprites.draw with sprite_scene, (320 / 2) - 16, 16;
-S: call _sprites.draw with sprite_character, (320 / 2) - 16, 16;
-S: call _sprites.draw with sprite_dialogue, (320 / 2) - 16, 16;
-
-A: Well? Is it fun? Is it beautiful?
-
-P: It's sublime.
-P: It totally sucks.
-
-A: Wow! I could never make that judgment. 
 
 P: I didn't know AI couldn't just do everything and make a videogame without humans.
 P: I didn't know AI could be applied as a tool without displacing human artists.
