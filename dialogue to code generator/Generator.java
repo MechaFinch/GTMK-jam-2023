@@ -17,8 +17,9 @@ public class Generator {
     static final String [] choiceColors = {"COLOR_CHOICE1", "COLOR_CHOICE2", "COLOR_CHOICE3"};
     static final String color2 = "COLOR_TRANSPARENT";
 
-    static final int lineHeight = 1;
+    static final int lineHeight = 2;
     static final int defaultVerticalPos = 21;
+    static final int defaultHorizontalPos = 1;
     static final int charsPerLine = 38;
 
     static final String waitInput = "\ncall _dialog.wait_dialog with none;";
@@ -131,7 +132,7 @@ public class Generator {
         String varname = "str" + id;
         String str = "";
         str += "\nconstant " + varname + " is string gets \"" + dialogue + "\";";
-        str += "\ncall _text.a_string with to " + varname + ", sizeof " + varname + ", " + color + ", COLOR_TRANSPARENT, " + verticalPos + ", 2;";
+        str += "\ncall _text.a_string with to " + varname + ", sizeof " + varname + ", " + color + ", COLOR_TRANSPARENT, " + verticalPos + ", " + defaultHorizontalPos + ";";
         return str;
 
     }
