@@ -8,9 +8,28 @@ import java.util.List;
 
 public class Generator {
 
+    /*
+     * From a plaintext writer-friendly script, generates
+     * the actual instructions the game calls to display the text.
+     * 
+     * Spaces are used to distinguish between sets of player choices. 
+     * Lines not starting with the given characters are ignored.
+     * 
+     * Script example:
+     * 
+     * A: Dialogue spoken by the AI. 
+     * 
+     * P: Player choice 1
+     * P: Player choice 2
+     * P: Player choice 3
+     * 
+     * P: Dialogue spoken by the player.
+     * 
+     * S: [raw code copied exactly, ex. calling a function that changes the music]
+     */
+
     static final String readLinesStartingWith = "PAFG S";
-    //parallel with above
-    static final String [] colors = {"COLOR_HUMAN_TEXT", "COLOR_ROBOT_TEXT", "COLOR_WHITE", "COLOR_WHITE"};
+
     static final String colorAI = "COLOR_ROBOT_TEXT";
     static final String colorHuman = "COLOR_HUMAN_TEXT";
     static final String colorWhite = "COLOR_WHITE";
@@ -24,10 +43,13 @@ public class Generator {
 
     static final String waitInput = "\ncall _dialog.wait_dialog with none;";
     static final String clearCode = "\ncall _dialog.reset_box with none;";
-    
 
+    static final String inputFileName = "intput.txt";
+    static final String outputFileName = "output.txt";
+    
     public static void main(String [] args) throws IOException {
-        String [] lines = readLines("input.txt");
+
+        String [] lines = readLines(inputFileName);
 
         int [] lineBreakCounts = new int[lines.length];
 
@@ -35,7 +57,6 @@ public class Generator {
             lines[i] = formatDialogString(lines[i]);
 			lineBreakCounts[i] = countLines(lines[i]);
         }
-
 
         ArrayList<String> outputStrings = new ArrayList<String>();
 
@@ -48,15 +69,16 @@ public class Generator {
 
             char letter = lines[i].charAt(0);
 
+            //AI dialogue, no need to check for choices
             if(letter == 'A') {
 
-                //AI dialogue, no need to check for choices
                 outputStrings.add(clearCode);
                 outputStrings.add(generateCode(lines[i].substring(3), colorAI, lineBreakCounts[i], i));
                 outputStrings.add(waitInput);
 
             }
 
+            //player dialogue, accounts for multiple choices
             if(letter == 'P') {
 
                 outputStrings.add(clearCode);
@@ -87,39 +109,38 @@ public class Generator {
                 i += choicesCount - 1;
             }
 
+            //factory dialogue
             if(letter == 'F') {
 
-                //factory dialogue
                 outputStrings.add(clearCode);
                 outputStrings.add(generateCode(lines[i].substring(3), colorWhite, lineBreakCounts[i], i));
                 outputStrings.add(waitInput);
 
             }
 
+            //game dialogue- could merge w factory dialogue its prob just a diff color 
             if(letter == 'G') {
 
-                //game dialogue- could merge w factory dialogue its prob just a diff color 
                 outputStrings.add(clearCode);
                 outputStrings.add(generateCode(lines[i].substring(3), colorWhite, lineBreakCounts[i], i));
                 outputStrings.add(waitInput);
 
             }
 
+            //special flag for raw code 
             if(letter == 'S') {
-
-                //special flag for raw code 
 
                 outputStrings.add("\n" + lines[i].substring(3));
             }
         }
 
         //clear what was in output.txt 
-        PrintWriter writer = new PrintWriter("output.txt");
+        PrintWriter writer = new PrintWriter(outputFileName);
         writer.print("");
         writer.close();
 
         //print to output.txt 
-        FileWriter writer2 = new FileWriter("output.txt"); 
+        FileWriter writer2 = new FileWriter(outputFileName); 
         for(String str: outputStrings) {
             writer2.write(str + System.lineSeparator());
         }
@@ -137,15 +158,10 @@ public class Generator {
         return str;
 
     }
-
     //id is unique for variable name 
     public static String generateCode(String dialogue, String color, int numLines, int id) {
-
         return generateCode(dialogue, color, numLines, id, defaultVerticalPos);
-
     }
-
-
 
     //count how many lines this would take
     public static int countLines(String str) {
@@ -172,25 +188,11 @@ public class Generator {
 		        str = str.substring(0, str.lastIndexOf(' ', strIndex)) + "\\n" + str.substring(str.lastIndexOf(' ', strIndex) + 1);
 		        
 		        lineIndex = 5;
-		        //strIndex++;
-		        //strIndex--;
 		    }
 		    
 			lineIndex++;
 			strIndex++;
 		}
-
-		/*
-        int counter = 0; 
-        while(counter * charsPerLine < str.length()) {
-
-            counter++;
-            int pos = counter * charsPerLine;
-            if(pos < str.length()) {
-                str = str.substring(0, pos) + "\\n" + str.substring(pos);
-            }
-        }
-        */
 
         str.replaceAll("\"", "\\\"");
         str.replaceAll("\'", "\\\'");
@@ -199,8 +201,8 @@ public class Generator {
 
     }
 
-
-    //from stackoverflow with modifications 
+    //from stackoverflow with modifications
+    //read in only the relevant lines in the file 
     public static String[] readLines(String filename) throws IOException {
         FileReader fileReader = new FileReader(filename);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
